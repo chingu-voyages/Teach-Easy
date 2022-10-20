@@ -7,14 +7,16 @@ const User = new Schema({
                 type: String,
                 unique: true
         },
+        
         image: String,
         googleId: String,
         secret: String,
         role: { 
                 type: String,
-                enum: ['student', 'teacher']
+                default: 'Student'
         },
-        language: String
+        language: String,
+        goal: String
 });
 
 
