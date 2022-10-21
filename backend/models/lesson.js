@@ -27,8 +27,8 @@ const Lesson = new Schema({
         required: true
     },
     rating: {
-        ratedBy: String,
-        rateGiven: Number
+        ratedBy: Array,
+        rateGiven: Array
     },
     createdAt:{
         type: Date,
