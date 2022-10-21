@@ -8,7 +8,7 @@
   line-height: 24px;
   font-weight: 400;
 }
-*{
+* {
   box-sizing: border-box;
 }
 a {
@@ -20,3 +20,8 @@ body {
   margin: 0;
 }
 
+@layer components {
+  .heading-text {
+    @apply font-sans  font-semibold	text-4xl;
+  }
+}
