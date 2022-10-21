@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// rating sorted with the name of the user who rated it and a rating. So users can change their rating if they wish, it'll also mean users can't rate a lesson more than once.
-// Could definitely be made more efficient, open to any suggests for improvements
+// rating sorted with the name of the student who rated it and a rating. All stored in arrays.
+// Also this way there's not the ability to change a rating, but that is a feature we could improve or add later
+// It could definitely be made more efficient, open to any suggests for improvements
 const Lesson = new Schema({
     teacherId: String,
     title:{
