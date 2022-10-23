@@ -89,7 +89,7 @@ export default function Homepage() {
                 </div>
                 <div className="content w-full text-center">
                   <h1 className="text-slate-900 font-black text-2xl tracking-tight text-center dark:text-white">
-                    Became A Tutor
+                    Become A Tutor
                   </h1>
                   <p className="mt-6 text-lg text-slate-600 text-center max-w-3xl mx-auto dark:text-slate-400">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
