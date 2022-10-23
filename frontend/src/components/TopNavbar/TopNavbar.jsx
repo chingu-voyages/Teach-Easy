@@ -7,8 +7,12 @@ import './TopNavbar.scss';
 const TopNavbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
 
-  const handleToggle = () => {
+  const handleToggleMobileMenu = () => {
     setNavbarOpen((navbarOpen) => !navbarOpen);
+  };
+
+  const closeMenu = () => {
+    setNavbarOpen(false);
   };
 
   return (
@@ -32,20 +36,31 @@ const TopNavbar = () => {
           <FontAwesomeIcon
             icon={faBars}
             size="2x"
-            onClick={handleToggle}
-            className={`button ${navbarOpen ? 'invisible' : 'visible'}`}
+            onClick={handleToggleMobileMenu}
+            className={`button ${
+              navbarOpen ? 'invisible' : 'visible'
+            } md:invisible`}
           />
           <FontAwesomeIcon
             icon={faXmark}
             size="2x"
-            onClick={handleToggle}
+            onClick={handleToggleMobileMenu}
             className={`button ${navbarOpen ? 'visible' : 'invisible'}`}
           />
           <ul className={`menuNav ${navbarOpen ? 'visible' : 'invisible'}`}>
+            <li>
+              <Link to="/" onClick={closeMenu}>
+                Home
+              </Link>
+            </li>
             <li>Teachers</li>
             <li>Lessons</li>
             <li>Donate</li>
-            <li>Sign In</li>
+            <li>
+              <Link to="/signin" onClick={closeMenu}>
+                Sign In
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
