@@ -1,0 +1,9 @@
+.footer {
+  &-link:hover {
+    text-decoration: underline;
+  }
+
+  &-icon-link:hover {
+    color: gray;
+  }
+}
