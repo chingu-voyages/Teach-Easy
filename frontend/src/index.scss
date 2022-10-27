@@ -23,12 +23,18 @@ img {
 body {
   margin: 0;
 }
-<<<<<<< HEAD
 
 @layer components {
   .heading-text {
     @apply font-sans  font-semibold	text-4xl;
   }
+  .social-button {
+    @apply px-14 py-4 drop-shadow-xl text-blue-800 border border-stone-400 rounded-full;
+  }
+  .form_input {
+    @apply w-full h-16 px-2 py-1 rounded-lg my-3 border border-gray-300;
+  }
+  .signup-btn {
+    @apply py-4 bg-blue-600 w-full text-white text-lg rounded-lg;
+  }
 }
-=======
->>>>>>> feeeb476b214e00ac58176dc285a1cd5f2d9f29f
