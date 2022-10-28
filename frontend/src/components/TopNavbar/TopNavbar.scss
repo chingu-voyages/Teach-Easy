@@ -1,0 +1,39 @@
+.navbar {
+  position: relative;
+}
+
+.menuNav {
+  overflow-y: scroll;
+  list-style: none;
+  position: fixed;
+  background: white;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  z-index: 9;
+
+  li {
+    text-align: center;
+    font-size: xx-large;
+    padding: 1rem;
+
+    &:hover {
+      color: gray;
+    }
+
+    &:first-child {
+      margin-top: 7rem;
+    }
+  }
+}
+
+.navbar .button {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  z-index: 10;
+  cursor: pointer;
+}
