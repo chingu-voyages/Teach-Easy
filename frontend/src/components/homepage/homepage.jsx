@@ -4,11 +4,14 @@ import studentsImage from './../../assets/students.png';
 import section3Image from './../../assets/rocket.png';
 import { Link } from 'react-router-dom';
 import Slider from './slider';
+import TopNavbar from '../TopNavbar/TopNavbar';
+import Footer from '../Footer/Footer';
+
 export default function Homepage() {
   return (
     <>
       <div className="w-full h-full">
-        {/*header*/}
+        <TopNavbar />
         <div className="section1">
           <div className="container px-5 m-auto lg:w-[960px] xl:w-[1140px] 2xl:w-[1320px] h-full">
             <div className="w-full flex gap-x-4 py-14 items-center justify-center md:justify-between">
@@ -89,7 +92,7 @@ export default function Homepage() {
                 </div>
                 <div className="content w-full text-center">
                   <h1 className="text-slate-900 font-black text-2xl tracking-tight text-center dark:text-white">
-                    Became A Tutor
+                    Become A Tutor
                   </h1>
                   <p className="mt-6 text-lg text-slate-600 text-center max-w-3xl mx-auto dark:text-slate-400">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -138,6 +141,7 @@ export default function Homepage() {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   );
