@@ -4,6 +4,8 @@ const app = express();
 const connectionToMongoDB = require('./config/mongodb')
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json())
+
 connectionToMongoDB()
 app.get('/', (req,res)=> {
     res.send("<h1>Welcome</h1>")
