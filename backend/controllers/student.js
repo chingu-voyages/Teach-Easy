@@ -2,6 +2,24 @@ const lessonDocInDB = require('../models/lesson');
 const studentDocInDB = require('../models/student');
 const mongoose = require('mongoose');
 
+//POST: create student profile
+const createStudentProfile = async (req,res)=>{
+    const {firstName, lastName, image, language, email, role} = req.body;
+    try {
+        const profile = await studentDocInDB.create({
+        firstName: firstName,
+        lastName: lastName,
+        image: image,
+        language: language,
+        role: role,
+        email: email
+        });
+        res.status(200).json(profile);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+}
+
 //GET: retrieve info for student dashboard
 const getDash = async (req,res) => {
     const {id} = req.params;
@@ -34,4 +52,4 @@ const updateDash = async (req,res)=>{
     }
 }
 
-module.exports = {getDash, updateDash}
+module.exports = { getDash, updateDash, createStudentProfile }
