@@ -1,7 +1,6 @@
 const lessonDocInDB = require('../models/lesson');
 const teacherDocInDB = require('../models/teacher')
 const mongoose = require('mongoose');
-const teacher = require('../models/teacher');
 
 //Get: search lesson Docs
 const getLessonDoc = async (req,res) => {
@@ -10,23 +9,58 @@ const getLessonDoc = async (req,res) => {
     // const {tags, wordSearch} = req.query;
     const tags = req.query.tags;
     try {
-        const lessons = await lessonDocInDB.find({ tags : { $in : tags.split(',').map(elem=> elem) }})
-        console.log('found', lessons)
-        res.status(200).json(lessons)
+        const lessons = await lessonDocInDB.find({ tags : { $in : tags.split(',').map(elem=> elem) }});
+        console.log('found', lessons);
+        res.status(200).json(lessons);
     } catch (error) {
-        res.status(500).json({error: error.message})
+        res.status(500).json({error: error.message});
     }
 };
 
 //GET: teacher profile details
 const getProfile = async (req,res) => {
-    const id = req.params
+    const id = req.params;
     try {
-        const profile = await teacherDocInDB.find({ id: id})
-        res.status(200).json(profile)
+        const profile = await teacherDocInDB.find({ id: id});
+        res.status(200).json(profile);
     } catch (error) {
-        res.status(500).json({error: error.message})
+        res.status(500).json({error: error.message});
     }
 };
 
-module.exports = { getLessonDoc, getProfile }
+//PUT: updates the teacher profile info.
+const updateProfile = async (req,res)=>{
+    const {id} = req.params;
+    const {firstName, lastName, image, language, aboutMe, uploadedLessons, meetingLinks, nextLessonDate} = req.body;
+    console.log('body', req.body, 'params', id)
+    try {
+        const profile = await teacherDocInDB.findOneAndUpdate({ _id: id } , {
+        firstName: firstName,
+        lastName: lastName,
+        image: image,
+        language: language,
+        aboutMe: aboutMe,
+        uploadedLessons: uploadedLessons,
+        meetingLinks: meetingLinks,
+        nextLessonDate: nextLessonDate,
+        });
+        res.status(200).json(profile);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+}
+//GET: dashboard information
+const getDash = async (req,res) => {
+    const {id} = req.params;
+    try {
+        const dash = await teacherDocInDB.find({ _id: id })
+            .select({nextLessonDate: 1, firstName: 1, lastName: 1, email: 1, role: 1, language: 1, image: 1, meetingLinks: 1, nextLessonDate: 1, nextLessonAttendees: 1, _id: 0, });
+        res.status(200).json(dash);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+}
+
+
+
+module.exports = { getLessonDoc, getProfile, updateProfile, getDash }

@@ -1,33 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const { getLessonDoc, getProfile} = require('../controllers/teacher')
+const { getLessonDoc, getProfile, updateProfile, getDash } = require('../controllers/teacher')
 //teacher routes
 
-//teacher search
+//GET: teacher search
 router.get('/search', getLessonDoc);
 
-//get teacher profile details
+//GET: teacher profile details
 router.get('/profile/:id', getProfile)
 
 //teacher schedule
+
 router.post('/schedule', (req,res)=> {
     res.send("<h1>teacher</h1>");
 });
 //teacher profile creation
-router.post('/profile/create', (req,res)=> {
-    res.send("<h1>teacher</h1>");
-});
+//Perhaps the post isn't necessary. We can create the profile with the basic info.
+// All additional info can be done in a put request i.e. the /profile/update route
+// router.post('/profile/create', (req,res)=> {
+//     res.send("<h1>teacher</h1>");
+// });
 //teacher profile update
-router.put('/profile/update', (req,res)=> {
-    res.send("<h1>teacher</h1>");
-});
+router.put('/profile/update/:id',  updateProfile);
+
 //teacher dash
-router.get('/dashboard', (req,res)=>{
-    res.send("<h1>teacher dash</h1>")
-})
+router.get('/dashboard/:id', getDash)
+
 //teacher dash update 
-router.put('/dashboard', (req,res)=>{
-    res.send("<h1>Student dash</h1>")
-})
+//I've set it as updateProfile as all the info for the dash is stored in the same model as the profile info
+router.put('/dashboard/:id', updateProfile)
 
 module.exports = router;
