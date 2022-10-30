@@ -2,7 +2,7 @@ const lessonDocInDB = require('../models/lesson');
 const teacherDocInDB = require('../models/teacher');
 const mongoose = require('mongoose');
 
-// GET : search for lesson
+//GET: search for lesson
 const getLessonDoc = async (req,res) => {
     // Tags from req.query receives an array in url/search?tags=item1,item2... format, whilst word search can receive a string.
     // word search not set up yet

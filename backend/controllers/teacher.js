@@ -2,7 +2,26 @@ const lessonDocInDB = require('../models/lesson');
 const teacherDocInDB = require('../models/teacher')
 const mongoose = require('mongoose');
 
-//Get: search lesson Docs
+
+//POST: Create a teacher profile;
+const createTeacherProfile = async (req,res)=>{
+    const {firstName, lastName, image, role, language, email} = req.body;
+    try {
+        const profile = await teacherDocInDB.create({
+        firstName: firstName,
+        lastName: lastName,
+        image: image,
+        language: language,
+        role: role,
+        email: email
+        });
+        res.status(200).json(profile);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+}
+
+//GET: search lesson Docs
 const getLessonDoc = async (req,res) => {
     // Tags from req.query receives an array in url/search?tags=item1,item2... format, whilst word search can receive a string.
     // word search not set up yet
@@ -63,4 +82,4 @@ const getDash = async (req,res) => {
 
 
 
-module.exports = { getLessonDoc, getProfile, updateProfile, getDash }
+module.exports = { getLessonDoc, getProfile, updateProfile, getDash, createTeacherProfile }
