@@ -15,7 +15,6 @@ const Student = new Schema({
         },
         language: String,
         goal: String,
-        lessonsRated: Array
 });
 
 
