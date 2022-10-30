@@ -9,15 +9,19 @@
 
 const express = require('express');
 const router = express.Router();
-const {postLesson, getLessonDoc, bookLesson} = require('../controllers/lesson')
+const {postLesson, getLessonDoc, bookLesson, rateLesson} = require('../controllers/lesson')
 
 //lesson routes
 //lesson search
 router.get('/search/', getLessonDoc);
+
 //lesson uploads
 router.post('/upload/:id', postLesson);
 
 //lesson booking => updates teacher form: nextLessonAttendees.
-router.put('/booking:id', bookLesson);
+router.put('/booking/', bookLesson);
+
+//Give a rating to a lesson
+router.put('/rate/', rateLesson);
 
 module.exports = router;

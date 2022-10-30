@@ -16,7 +16,6 @@ const Teacher = new Schema({
         language: String,
         aboutMe:{
             type: String,
-            require: true
         },
         uploadedLessons: Array,
         meetingLinks: Array,
