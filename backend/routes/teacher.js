@@ -1,19 +1,18 @@
 const express = require('express');
 const router = express.Router();
-
+const { getLessonDoc, getProfile} = require('../controllers/teacher')
 //teacher routes
+
+//teacher search
+router.get('/search', getLessonDoc);
+
+//get teacher profile details
+router.get('/profile/:id', getProfile)
+
 //teacher schedule
 router.post('/schedule', (req,res)=> {
     res.send("<h1>teacher</h1>");
 });
-//teacher search
-router.get('/search', (req,res)=> {
-    res.send("<h1>teacher</h1>");
-});
-//get teacher profile details
-router.get('/profile', (req,res)=>{
-    res.send("<h1>Teacher profile</h1>")
-})
 //teacher profile creation
 router.post('/profile/create', (req,res)=> {
     res.send("<h1>teacher</h1>");

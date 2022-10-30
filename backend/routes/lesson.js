@@ -9,21 +9,15 @@
 
 const express = require('express');
 const router = express.Router();
-const {postLesson} = require('../controllers/lesson')
+const {postLesson, getLessonDoc, bookLesson} = require('../controllers/lesson')
 
 //lesson routes
 //lesson search
-router.get('/search/', (req,res)=> {
-    // Tags can receive an array, whilst word search can receive a string.
-    const {tags, wordSearch} = req.query;
-    res.send('<h1>Here it is</h1>')
-});
+router.get('/search/', getLessonDoc);
 //lesson uploads
-router.post('/upload', postLesson);
+router.post('/upload/:id', postLesson);
 
-//lesson booking
-router.post('/booking', (req,res)=> {
-    res.send("<h1>lesson</h1>");
-});
+//lesson booking => updates teacher form: nextLessonAttendees.
+router.put('/booking:id', bookLesson);
 
 module.exports = router;

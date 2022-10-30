@@ -20,7 +20,8 @@ const Teacher = new Schema({
         },
         uploadedLessons: Array,
         meetingLinks: Array,
-        nextLesson: Date
+        nextLessonDate: Date,
+        nextLessonAttendees: Array
 });
 
 
