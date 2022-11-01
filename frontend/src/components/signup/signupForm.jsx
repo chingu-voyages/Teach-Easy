@@ -6,7 +6,7 @@ function SignupForm({ handleSubmit, role }) {
   return (
     <div className="signup-wrapper flex flex-row-reverse content-center justify-items-center 0 h-full">
       <div className="signup-form-container py-20 p-16 flex flex-col items-center	 justify-center sm:w-full ">
-        <h2 className="signup_header heading-text">Sign Up to TeachEasy</h2>
+        <h2 className="signup_header heading-text text-center">Sign Up to TeachEasy</h2>
         <button className="social-signup  mt-6 social-button">
           Sign In With Google
         </button>
@@ -52,7 +52,7 @@ function SignupForm({ handleSubmit, role }) {
             id="remember-me"
             name="remember-me"
           />
-          <label className="font-bold text-gray-500 text-sm" for="remember-me">
+          <label className="font-bold text-gray-500 text-sm" htmlFor="remember-me">
             Remember me
           </label>
           <div className="cta">
