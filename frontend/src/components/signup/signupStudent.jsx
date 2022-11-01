@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import SignupForm from './signupForm';
+import { auth } from '../../config/firebase-config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 function SignupTeacher() {
   // const [info, setinfo] = useState({
@@ -9,13 +11,23 @@ function SignupTeacher() {
   //   password: '',
   // });
 
+  // const signupAuth = async (data) => {
+  //   try {
+  //     const user = await createUserWithEmailAndPassword(auth, data.email, data.password );
+  //     console.log('used created',user);
+  //   } catch (error) {
+  //     console.error(error.message);
+  //   } 
+  //   console.log('signup');
+  // }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { first_Name, lastName, email, password } = event.target.elements;
+    const { firstName, lastName, email, password } = event.target.elements;
     // console.log(firstName.value, lastName.value, email.value, password.value);
     const data = {
-      first_name: firstName.value,
-      last_name: lastName.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
       email: email.value,
       password: password.value,
     };

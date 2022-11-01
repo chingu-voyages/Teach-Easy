@@ -57,7 +57,7 @@ const TopNavbar = () => {
             <li>Lessons</li>
             <li>Donate</li>
             <li>
-              <Link to="/signin" onClick={closeMenu}>
+              <Link to="/login" onClick={closeMenu}>
                 Sign In
               </Link>
             </li>
