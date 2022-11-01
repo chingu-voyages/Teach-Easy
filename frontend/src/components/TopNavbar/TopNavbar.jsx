@@ -28,6 +28,15 @@ const TopNavbar = () => {
           <div>Teachers</div>
           <div>Lessons</div>
           <div>Donate</div>
+          {/* TODO: remove when profile is accessible from dashboard or search */}
+          <div>
+            <Link
+              to="/sampleTeacherProfile"
+              className="text-slate-500 bg-red-200"
+            >
+              Sample teacher profile
+            </Link>
+          </div>
           <div>
             <Link to="/login">Sign In</Link>
           </div>
@@ -56,6 +65,12 @@ const TopNavbar = () => {
             <li>Teachers</li>
             <li>Lessons</li>
             <li>Donate</li>
+            {/* TODO: remove when profile is accessible from dashboard or search */}
+            <li>
+              <Link to="/sampleTeacherProfile" className="bg-red-200">
+                Sample teacher profile
+              </Link>
+            </li>
             <li>
               <Link to="/signin" onClick={closeMenu}>
                 Sign In
