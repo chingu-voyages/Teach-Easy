@@ -149,7 +149,7 @@ const TeacherProfile = () => {
                   key={lesson.title}
                   title={lesson.title}
                   level={lesson.level}
-                  date={lesson.dateTime}
+                  datetime={lesson.dateTime}
                   joinLink={lesson.joinLink}
                   viewLink={lesson.viewLink}
                 />
