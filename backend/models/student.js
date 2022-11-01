@@ -9,14 +9,12 @@ const Student = new Schema({
                 unique: true
         },
         image: String,
-        secret: String,
         role: { 
                 type: String,
                 default: 'Student'
         },
         language: String,
         goal: String,
-        lessonsRated: Array
 });
 
 

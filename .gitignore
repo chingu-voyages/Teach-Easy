@@ -1,5 +1,6 @@
 node_modules/
 .env
+FirebaseAuth.json
 # Logs
 logs
 *.log

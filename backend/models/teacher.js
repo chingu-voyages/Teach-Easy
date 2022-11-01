@@ -16,11 +16,11 @@ const Teacher = new Schema({
         language: String,
         aboutMe:{
             type: String,
-            require: true
         },
         uploadedLessons: Array,
         meetingLinks: Array,
-        nextLesson: Date
+        nextLessonDate: Date,
+        nextLessonAttendees: Array
 });
 
 
