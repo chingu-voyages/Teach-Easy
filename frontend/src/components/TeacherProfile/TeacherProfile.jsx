@@ -55,7 +55,7 @@ const TeacherProfile = () => {
 
           <DataCard>
             <div className="card-icon">
-              <FontAwesomeIcon icon={faFaceSmile} color="rgb(67 56 202)" />
+              <FontAwesomeIcon icon={faFaceSmile} className="text-indigo-800" />
             </div>
             <div className="text-content">
               <div className="text-xl pb-2">About me</div>
@@ -73,7 +73,10 @@ const TeacherProfile = () => {
 
           <DataCard>
             <div className="card-icon">
-              <FontAwesomeIcon icon={faGraduationCap} color="rgb(67 56 202)" />
+              <FontAwesomeIcon
+                icon={faGraduationCap}
+                className="text-indigo-800"
+              />
             </div>
             <div className="text-content">
               <div className="text-xl pb-2">Teaching Style</div>
@@ -91,7 +94,10 @@ const TeacherProfile = () => {
 
           <DataCard>
             <div className="card-icon">
-              <FontAwesomeIcon icon={faEarthAmericas} color="rgb(67 56 202)" />
+              <FontAwesomeIcon
+                icon={faEarthAmericas}
+                className="text-indigo-800"
+              />
             </div>
             <div className="text-content">
               <div className="text-xl pb-2">Languages</div>
@@ -104,7 +110,7 @@ const TeacherProfile = () => {
 
           <DataCard>
             <div className="card-icon">
-              <FontAwesomeIcon icon={faBrain} color="rgb(67 56 202)" />
+              <FontAwesomeIcon icon={faBrain} className="text-indigo-800" />
             </div>
             <div className="text-content">
               <div className="text-xl pb-2">Experience</div>
@@ -122,7 +128,7 @@ const TeacherProfile = () => {
 
           <DataCard>
             <div className="card-icon">
-              <FontAwesomeIcon icon={faBrain} color="rgb(67 56 202)" />
+              <FontAwesomeIcon icon={faBrain} className="text-indigo-800" />
             </div>
             <div className="text-content">
               <div className="text-xl pb-2">Education</div>
@@ -140,9 +146,12 @@ const TeacherProfile = () => {
 
           <DataCard>
             <div className="card-icon">
-              <FontAwesomeIcon icon={faCalendarDays} color="rgb(67 56 202)" />
+              <FontAwesomeIcon
+                icon={faCalendarDays}
+                className="text-indigo-800"
+              />
             </div>
-            <div className="text-content">
+            <div className="text-content w-full">
               <div className="text-xl pb-2">Lesson Schedule</div>
               {lessons.map((lesson) => (
                 <LessonCard
