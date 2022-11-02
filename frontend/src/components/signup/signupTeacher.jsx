@@ -2,24 +2,15 @@ import React, { useState } from 'react';
 import SignupForm from './signupForm';
 
 function SignupTeacher() {
-  // const [info, setinfo] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   password: '',
-  // });
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const { first_Name, lastName, email, password } = event.target.elements;
-    // console.log(firstName.value, lastName.value, email.value, password.value);
     const data = {
       first_name: firstName.value,
       last_name: lastName.value,
       email: email.value,
       password: password.value,
     };
-    console.log(data);
 
     fetch('localhost:3000/signup-teacher', {
       headers: {
