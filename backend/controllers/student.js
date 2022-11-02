@@ -4,9 +4,11 @@ const mongoose = require('mongoose');
 
 //POST: create student profile
 const createStudentProfile = async (req,res)=>{
-    const {firstName, lastName, image, language, email, role} = req.body;
+    console.log('through to controller')
+    const {firstName, lastName, image, language, email, role, loginID} = req.body;
     try {
         const profile = await studentDocInDB.create({
+        loginID,
         firstName,
         lastName,
         image,
@@ -14,9 +16,11 @@ const createStudentProfile = async (req,res)=>{
         role,
         email
         });
+        console.log('created Student Profile');
         res.status(200).json(profile);
     } catch (error) {
         res.status(500).json({error: error.message});
+        console.log(error, error.message)
     }
 }
 

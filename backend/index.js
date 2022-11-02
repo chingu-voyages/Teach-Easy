@@ -7,7 +7,8 @@ const cors = require('cors');
 
 //TODO Change '*' to exact origins
 app.use(cors({
-    origin: '*'
+    origin: '*',
+    "methods": "GET,PUT,POST,DELETE",
 }));
 
 app.use(express.json())

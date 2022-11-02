@@ -16,6 +16,7 @@ const createTeacherProfile = async (req,res)=>{
         role,
         email
         });
+        console.log('created teacher profile');
         res.status(200).json(profile);
     } catch (error) {
         res.status(500).json({error: error.message});
