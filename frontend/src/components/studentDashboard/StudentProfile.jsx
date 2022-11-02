@@ -7,15 +7,49 @@ import {
   faChalkboardUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState } from 'react';
+import { useEffect } from 'react';
+
+function CheckBoxTag({ value, tagName }) {
+  const [toggle, setToggle] = useState(false);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setToggle(!toggle);
+    // why does it not returns the correct boolean??
+    console.log('toggle after click', toggle);
+    // tagName({ toggle, value });
+  };
+
+  return (
+    <button
+      onClick={handleClick}
+      className={`filter-tag ${
+        toggle === false ? 'bg-gray-200' : 'bg-purple-600'
+      }`}
+      type="button"
+    >
+      {value}
+    </button>
+  );
+}
 
 function StudentProfile() {
-  const [tags, setTags] = React.useState(null);
-  const handletags = (e) => {
-    e.preventDefault();
+  const [tags, setTags] = React.useState([]);
+  const [data, setData] = useState(null);
+  const handleTags = (e) => {
+    console.log(e);
+    const value = e.value;
+    if (e.toggle) {
+      const findTag = tags.includes(value);
+      if (findTag) return;
+      setTags([...tags, value]);
+    }
   };
-  //   React.useEffect(() => {
-  //     console.log(tags.map((e) => console.log(e)));
-  //   });
+
+  useEffect(() => {
+    fetch('localhost/3000').then((res) => setData(res.data));
+  }, []);
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
       <div className=" py-5 flex flex-col gap-6">
@@ -83,24 +117,9 @@ function StudentProfile() {
               Search By Tags
             </h2>
             <div className="flex gap-3 mt-3 justify-center flex-wrap">
-              {/* <button className="filter-tag">Beginner</button>
-              <button className="filter-tag">Advanced</button>
-              <button className="filter-tag">Intermediate</button>
-              <button className="filter-tag">Master</button>
-              <button className="filter-tag">Master</button>
-              <button className="filter-tag">Master</button> */}
-              <div className="checkbox-item relative bg-gray-300 px-3 py-2">
-                <label for="beginner" className="z-2">
-                  <input
-                    className="  w-full h-full z-0"
-                    type="checkbox"
-                    name="beginner"
-                    id="beginner"
-                    value="Beginner"
-                  />
-                  Beginner
-                </label>
-              </div>
+              <CheckBoxTag value="Beginner" tagName={handleTags} />
+              <CheckBoxTag value="Intermediate" />
+              <CheckBoxTag value="Advanced" />
             </div>
           </div>
         </div>
@@ -148,7 +167,7 @@ function StudentProfile() {
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit a
               voluptatibus molestiae ullam.
             </p>
-            <div className="flex justify-between gap-8 flex-wrap">
+            <div className="flex justify-between gap-8 flex-wrap sm:flex-nowrap">
               <div className="teacher-item p-2">
                 <strong>Alex M.Alberten</strong>
                 <img

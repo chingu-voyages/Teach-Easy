@@ -39,7 +39,7 @@ body {
   }
 
   .filter-tag {
-    @apply px-4 py-2 bg-gray-200 text-black font-medium text-sm rounded-md  hover:bg-purple-300 active:bg-purple-600;
+    @apply px-4 py-2  text-black font-medium text-sm rounded-md  hover:bg-purple-300;
   }
   .grid-item {
     @apply bg-white rounded-lg px-4 py-3 drop-shadow-md;
