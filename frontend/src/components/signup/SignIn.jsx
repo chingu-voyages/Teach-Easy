@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { 
   getAuth,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  signInWithEmailAndPassword
  } from 'firebase/auth';
+import { auth } from '../../config/firebase-config'
 
 function SignIn() {
   const [auth, setAuth] = useState(false);
@@ -46,8 +48,9 @@ function SignIn() {
       const user = {
         email: result.user.email,
         firstName: userName[0],
-        lastName: userName[1],
-        photo: result.user.photoURL
+        lastName: userName[userName.length-1],
+        image: result.user.photoURL,
+        loginID: result.user.uid,
       }
       fetchData(user)
     })

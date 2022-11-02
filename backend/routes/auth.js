@@ -13,7 +13,9 @@ router.post('/student/signup', createStudentProfile);
 //TODO: As part of user authentication
 router.post('/login', (req,res)=> {
     console.log('request received')
-    console.log(req.body)
+    // const {loginID} = req.body; 
+    // if(!loginID)
+    console.log(req.body.loginID)
     res.send("<h1>authorised</h1>");
 });
 
