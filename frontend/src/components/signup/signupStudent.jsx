@@ -9,33 +9,38 @@ import {
 import { auth } from '../../config/firebase-config'
 
 function SignupTeacher() {
-  const [auth, setAuth] = useState(false);
+  const [userAuth, setUserAuth] = useState(false);
+
 
   const navigate = useNavigate();
   //After fetch is complete and all data is sent to the backend this navigate function direct to the user page.
   useEffect(()=>{
-    if(auth){
+    if(userAuth){
       navigate("/");
     }
-  }, [auth])
+  }, [userAuth])
 
-  const fetchData = () => {
-    fetch('localhost:3000/auth/student/signup', {
+  const fetchData = (data) => {
+    fetch('http://localhost:3000/auth/student/signup', {
       headers: {
         'Content-Type': 'application/json',
       },
       method: 'POST',
+      mode: 'cors',
       body: JSON.stringify(data),
     })
     .then(function (res) {
-      console.log(res);
+      if(res){
+        setUserAuth(true)
+      }
+      console.log('res',res);
     })
     .catch(function (err) {
-      console.log(err);
+      console.log(err.message);
     });
   }
   
-  const googleSignUp = async () => {
+  const googleSignUp = () => {
     const auth = getAuth();
     signInWithPopup(auth, new GoogleAuthProvider)
     .then((result) => {
@@ -61,27 +66,25 @@ function SignupTeacher() {
       const email = error.customData.email;
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
-      console.log(error, error.message)
+      console.log(error, errorMessage)
     });
   }
   const handleSubmit = (event) => {
     event.preventDefault();
     const { firstName, lastName, email, password } = event.target.elements;
-    // console.log(firstName.value, lastName.value, email.value, password.value);
     const data = {
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value,
       password: password.value,
     };
-    console.log(data);
 
     fetchData();
   };
 
   return (
     <div className="signup-page_wrapper h-screen	">
-      <SignupForm handleSubmit={handleSubmit} role="student" />
+      <SignupForm handleSubmit={handleSubmit} googleSignUp={googleSignUp} role="student" />
     </div>
   );
 }
