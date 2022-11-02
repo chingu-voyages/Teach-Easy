@@ -2,22 +2,13 @@ import React, { useState } from 'react';
 import SignInForm from './SignInForm';
 
 function SignIn() {
-  // const [info, setinfo] = useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   password: '',
-  // });
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
-    // console.log(firstName.value, lastName.value, email.value, password.value);
     const data = {
       email: email.value,
       password: password.value,
     };
-    console.log(data);
 
     fetch('localhost:3000/signin', {
       headers: {

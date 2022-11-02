@@ -3,7 +3,7 @@ import { FreeMode, Autoplay, Pagination, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import section2Image from './../../assets/home-section2.jpg';
-import './homepage.scss';
+
 export default function Slider() {
   const elements = [
     {
@@ -43,8 +43,8 @@ export default function Slider() {
       >
         {elements.map((value, index) => {
           return (
-            <SwiperSlide>
-              <div key={index} className={elements[index].background}>
+            <SwiperSlide key={index}>
+              <div className={elements[index].background}>
                 <div className="container px-5 m-auto lg:w-[960px] xl:w-[1140px] 2xl:w-[1320px] h-full">
                   <div className="w-full flex flex-wrap gap-[10%] py-16 items-center justify-center md:justify-between">
                     <div className="content w-full md:w-[50%] md:order-2 text-center">
