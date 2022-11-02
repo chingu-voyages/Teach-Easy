@@ -36,7 +36,10 @@ function SignInForm({ handleSubmit }) {
             id="remember-me"
             name="remember-me"
           />
-          <label className="font-bold text-gray-500 text-sm" for="remember-me">
+          <label
+            className="font-bold text-gray-500 text-sm"
+            htmlFor="remember-me"
+          >
             Remember me
           </label>
           <div className="cta">
