@@ -2,7 +2,7 @@ import React from 'react';
 import studentsImage from './../../assets/students.png';
 import stars from './../../assets/stars.svg';
 
-function SignInForm({ handleSubmit, googleSignIn }) {
+function SignInForm({ handleSubmit, role, googleSignIn }) {
   return (
     <div className="signup-wrapper flex flex-row-reverse content-center justify-items-center 0 h-full">
       <div className="signup-form-container py-20 p-16 flex flex-col items-center	 justify-center sm:w-full ">

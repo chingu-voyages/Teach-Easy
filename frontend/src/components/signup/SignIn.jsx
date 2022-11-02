@@ -5,19 +5,18 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithEmailAndPassword
  } from 'firebase/auth';
 import { auth } from '../../config/firebase-config'
 
 function SignIn() {
-  const [auth, setAuth] = useState(false);
+  const [userAuth, setUserAuth] = useState(false);
   const navigate = useNavigate();
   //After fetch is complete and all data is sent to the backend this navigate function direct to the user page.
   useEffect(()=>{
-    if(auth){
+    if(userAuth){
       navigate("/");
     }
-  }, [auth])
+  }, [userAuth])
 
   const fetchData = (data) => {
     fetch('http://localhost:3000/auth/login', {
@@ -28,7 +27,9 @@ function SignIn() {
       body: JSON.stringify(data),
     })
       .then(function (res) {
-        setAuth(true);
+        if(res){
+          setUserAuth(true);
+        }
         console.log(res);
       })
       .catch(function (err) {
@@ -36,7 +37,7 @@ function SignIn() {
       });
   }
 
-  const googleSignIn = async () => {
+  const googleSignIn = () => {
     const auth = getAuth();
     signInWithPopup(auth, new GoogleAuthProvider)
     .then((result) => {
@@ -62,12 +63,8 @@ function SignIn() {
       const email = error.customData.email;
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
+      console.log(error, error.message)
     });
-  }
-
-  const loginAuth = async (data) => {
-
   }
 
   const handleSubmit = (event) => {
