@@ -3,7 +3,7 @@ import { FreeMode, Autoplay, Pagination, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import section2Image from './../../assets/home-section2.jpg';
-import './homepage.scss';
+
 export default function Slider() {
   const elements = [
     {
