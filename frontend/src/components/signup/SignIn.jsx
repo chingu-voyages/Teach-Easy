@@ -73,6 +73,7 @@ function SignIn() {
         email: user.email,
         loginID: user.uid
       }
+      console.log(loginData)
       fetchData(loginData)
     })
     .catch((error) => {
