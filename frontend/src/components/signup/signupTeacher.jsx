@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SignupForm from './signupForm';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase-config';
 
 function SignupTeacher() {
@@ -11,7 +11,7 @@ function SignupTeacher() {
   //After fetch is complete and all data is sent to the backend this navigate function direct to the user page.
   useEffect(() => {
     if (userAuth) {
-      navigate('/');
+      navigate('/sampleTeacherProfile');
     }
   }, [userAuth]);
 
@@ -65,18 +65,37 @@ function SignupTeacher() {
       });
   };
 
+  const emailAndPWSignUp = ({firstName, lastName, email, password}) => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      const signUpData = {
+        firstName,
+        lastName,
+        email: user.email,
+        loginID: user.uid
+      }
+      fetchData(signUpData)
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log('Sign in Error: ',errorCode)
+    }); 
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const { firstName, lastName, email, password } = event.target.elements;
-    // console.log(firstName.value, lastName.value, email.value, password.value);
     const data = {
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value,
       password: password.value,
     };
-
-    fetchData();
+    emailAndPWSignUp({...data})
   };
   return (
     <div className="signup-page_wrapper h-screen	">
