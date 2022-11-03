@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import Slider from './slider';
 import TopNavbar from '../TopNavbar/TopNavbar';
 import Footer from '../Footer/Footer';
-
 export default function Homepage() {
   return (
     <>
@@ -27,7 +26,7 @@ export default function Homepage() {
                   It's all for free, all you need is your device!
                 </p>
                 <div className="w-full my-6 flex items-center justify-center">
-                  <Link to="/signup">
+                  <Link to="/signup-student">
                     <button className=" hover:bg-indigo-800 bg-indigo-700 focus:outline-none text-white font-semibold h-10 px-6 rounded-md w-full flex items-center justify-center sm:w-[12rem]">
                       Start Learning
                     </button>
@@ -78,7 +77,7 @@ export default function Homepage() {
                     Voluptas quae nostrum, vitae consequatur eaque quas rem!
                   </p>
                   <div className="w-full my-6 flex items-center justify-center">
-                    <Link to="/signup">
+                    <Link to="/signup-student">
                       <button className=" hover:bg-blue-800 bg-blue-700 focus:outline-none text-white font-semibold h-10 px-6 rounded-md flex items-center justify-center w-[12rem]">
                         Start Learning
                       </button>
@@ -99,7 +98,7 @@ export default function Homepage() {
                     Voluptas quae nostrum, vitae consequatur eaque quas rem!
                   </p>
                   <div className="w-full my-6 flex items-center justify-center">
-                    <Link to="/tutor/signup">
+                    <Link to="/signup-teacher">
                       <button className=" hover:bg-blue-800 bg-blue-700 focus:outline-none text-white font-semibold h-10 px-6 rounded-md flex items-center justify-center w-[12rem]">
                         Start Teaching
                       </button>

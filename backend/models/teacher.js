@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 const Teacher = new Schema({
         firstName: String,
         lastName: String,
-        googleId: String,
+        loginID: {
+            type: String,
+            unique: true,
+        },
         email: {
             type: String,
             unique: true
@@ -14,13 +17,15 @@ const Teacher = new Schema({
             default: 'Teacher'
         },
         language: String,
+        languageProficiency: String,
         aboutMe:{
             type: String,
-            require: true
         },
         uploadedLessons: Array,
         meetingLinks: Array,
-        nextLesson: Date
+        nextLessonDate: Date,
+        nextLessonAttendees: Array,
+
 });
 
 
