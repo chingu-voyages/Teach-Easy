@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import Slider from './slider';
 import TopNavbar from '../TopNavbar/TopNavbar';
 import Footer from '../Footer/Footer';
-
 export default function Homepage() {
   return (
     <>
