@@ -13,12 +13,13 @@ import { useEffect } from 'react';
 function CheckBoxTag({ value, tagName }) {
   const [toggle, setToggle] = useState(false);
 
+  useEffect(() => {
+    tagName({ toggle, value });
+  }, [toggle]);
+
   const handleClick = (e) => {
     e.preventDefault();
     setToggle(!toggle);
-    // why does it not returns the correct boolean??
-    console.log('toggle after click', toggle);
-    // tagName({ toggle, value });
   };
 
   return (
@@ -37,19 +38,32 @@ function CheckBoxTag({ value, tagName }) {
 function StudentProfile() {
   const [tags, setTags] = React.useState([]);
   const [data, setData] = useState(null);
+
+  const tagNames = [
+    'Beginner',
+    'Intermediate',
+    'Advanced',
+    'Business',
+    'Travel',
+    'Technical',
+    'Grammar',
+  ];
+
   const handleTags = (e) => {
-    console.log(e);
     const value = e.value;
     if (e.toggle) {
       const findTag = tags.includes(value);
       if (findTag) return;
       setTags([...tags, value]);
+    } else {
+      setTags(tags.filter((tag) => tag !== value));
     }
   };
 
   useEffect(() => {
     fetch('localhost/3000').then((res) => setData(res.data));
   }, []);
+
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
       <div className=" py-5 flex flex-col gap-6">
@@ -117,9 +131,13 @@ function StudentProfile() {
               Search By Tags
             </h2>
             <div className="flex gap-3 mt-3 justify-center flex-wrap">
-              <CheckBoxTag value="Beginner" tagName={handleTags} />
-              <CheckBoxTag value="Intermediate" />
-              <CheckBoxTag value="Advanced" />
+              {tagNames.map((tagName) => (
+                <CheckBoxTag
+                  key={tagName}
+                  value={tagName}
+                  tagName={handleTags}
+                />
+              ))}
             </div>
           </div>
         </div>
