@@ -72,7 +72,8 @@ function SignIn() {
       password: password.value,
     };
     console.log('typed', data);
-    loginAuth(data);
+    // TODO: implement login via email and password
+    // loginAuth(data);
   };
 
   return (
