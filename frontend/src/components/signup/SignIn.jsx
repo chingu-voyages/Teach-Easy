@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SignInForm from './SignInForm';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../config/firebase-config';
 
 function SignIn() {
@@ -63,17 +63,35 @@ function SignIn() {
       });
   };
 
+  const emailAndPWSignIn = ({email, password}) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      const loginData = {
+        email: user.email,
+        loginID: user.uid
+      }
+      fetchData(loginData)
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log('Sign in Error: ',errorCode)
+    }); 
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = event.target.elements;
-    // console.log(firstName.value, lastName.value, email.value, password.value);
+
     const data = {
       email: email.value,
       password: password.value,
     };
-    console.log('typed', data);
-    // TODO: implement login via email and password
-    // loginAuth(data);
+    emailAndPWSignIn({...data})
+
   };
 
   return (
