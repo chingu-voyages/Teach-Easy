@@ -72,7 +72,7 @@ const TopNavbar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/signin" onClick={closeMenu}>
+              <Link to="/login" onClick={closeMenu}>
                 Sign In
               </Link>
             </li>
