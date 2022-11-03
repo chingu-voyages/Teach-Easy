@@ -19,6 +19,7 @@
   "homepage": "https://github.com/chingu-voyages/Teach-Easy#readme",
   "dependencies": {
     "config": "^3.3.8",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^6.6.5"
