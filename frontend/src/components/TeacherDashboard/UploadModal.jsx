@@ -27,10 +27,11 @@ function CheckBoxTag({ value, tagName }) {
     );
 }
 
-const UploadModal = ({ setUploading }) => {
-  const [tags, setTags] = React.useState([]);
-  const [data, setData] = useState(null);
 
+const UploadModal = ({ setUploading }) => {
+  const [tags, setTags] = useState([]);
+  const [data, setData] = useState(null);
+  
   const tagNames = [
     'Beginner',
     'Intermediate',
@@ -40,6 +41,32 @@ const UploadModal = ({ setUploading }) => {
     'Technical',
     'Grammar',
   ];
+
+  const sendFormData =  async ({lessonTitle, lessonDescription, lessonDocument, tags, id, language}) => {
+    const formData = new FormData();
+    // const jsoncontent = JSON.stringify({title: lessonTitle, lessonDescription, tags, id, language})
+    formData.append("lessonDocument", lessonDocument);
+    formData.append('id', id)
+    formData.append('title', lessonTitle)
+    formData.append('lessonDescription', lessonDescription)
+    formData.append('language', language)
+    formData.append('tags', tags)
+    console.log('formData:',formData)
+
+    try {
+      const post = await fetch("http://localhost:3000/lesson/upload", {
+        method: "POST",
+        mode: 'cors',
+        body: formData
+            
+      })
+      const res = await post.json();
+      console.log('response: ', res)
+    } catch (error) {
+      console.error(error.message)
+    }
+
+  }
 
   const handleCancel = () => {
     setUploading(false);
@@ -58,14 +85,19 @@ const UploadModal = ({ setUploading }) => {
 
     const handleSubmit = (event) => {
       event.preventDefault();
-      console.log(tags)
-      const { lessonTitle, lessonDescription } = event.target.elements;
+      const { lessonTitle, lessonDescription, lessonDocument } = event.target.elements;
       const lessonData = {
         lessonTitle: lessonTitle.value,
         lessonDescription: lessonDescription.value,
-        tags
+        tags,
+        language: 'English',
+        lessonDocument: lessonDocument.files[0],
+        id: 'TestID'
+        // teacherID: theTecherUID
       };
-      console.log('lessonData: ', lessonData)
+      // console.log('lessonData: ', lessonData)
+
+      sendFormData({ ...lessonData })
     };
 
   return (
@@ -87,6 +119,13 @@ const UploadModal = ({ setUploading }) => {
               name="lessonDescription"
               required
             ></textarea>
+            <label htmlFor="lessonDocument"></label>
+            <input 
+            type="file"
+            required 
+            name="lessonDocument"
+            placeholder="Upload here"
+            />
 
         <div className="flex-item  flex flex-col gap-3 mb-4">
             <h2 className="font-bold text-xl">
