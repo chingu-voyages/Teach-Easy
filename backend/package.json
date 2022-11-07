@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/chingu-voyages/Teach-Easy#readme",
   "dependencies": {
+    "cloudinary": "^1.32.0",
     "config": "^3.3.8",
     "cors": "^2.8.5",
+    "datauri": "^4.1.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^6.6.5",

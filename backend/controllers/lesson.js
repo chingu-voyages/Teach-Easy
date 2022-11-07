@@ -48,7 +48,7 @@ const postLesson = async(req,res)=> {
         res.status(400).json({error: 'Please make sure all fields are filled', emptyFields});
     }
     try {
-        const lesson = await lessonDocInDB.create({teacherId: id, title, image, teacherName, lessonDocument, tags, language});
+        const lesson = await lessonDocInDB.create({teacherId: id, title, image, lessonDescription, teacherName, lessonDocument, tags, language});
         res.status(200).json(lesson);
     } catch (error) {
         res.status(500).json({error: error.message});
