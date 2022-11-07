@@ -12,11 +12,12 @@ const Lesson = new Schema({
     image: {
         type: String,
     },
+    lessonDescription: String,
     teacherName: {
         type: String
     },
     lessonDocument:{
-        type: String,
+        type: Schema.Types.Mixed,
         required: true,
     },
     tags:{

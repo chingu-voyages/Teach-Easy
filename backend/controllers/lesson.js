@@ -2,6 +2,7 @@ const lessonDocInDB = require('../models/lesson');
 const teacherDocInDB = require('../models/teacher');
 const mongoose = require('mongoose');
 
+
 //GET: search for lesson
 const getLessonDoc = async (req,res) => {
     // Tags from req.query receives an array in url/search?tags=item1,item2... format, whilst word search can receive a string.
@@ -24,8 +25,12 @@ const getLessonDoc = async (req,res) => {
 const postLesson = async(req,res)=> {
     //title, lessonDocument,tags and language are required
     //TODO => add userID
-    const { id } = req.params;
-    const {title, image, teacherName, lessonDocument, tags, language} = req.body;
+    // console.log(req.body)
+    const lessonDocument =  req.file
+    console.log(lessonDocument)
+    let {id, title, image, teacherName, lessonDescription, tags, language} = req.body;
+    tags = tags.split(' ');
+    console.log('id', id, 'title', title, 'lessonDescription', lessonDescription, 'language', language, 'tags', tags)
     const emptyFields = [];
     if(!title){
         emptyFields.push('Title');

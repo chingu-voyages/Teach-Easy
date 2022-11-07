@@ -107,8 +107,7 @@ function TeacherInfo({ setUploading }) {
             <FontAwesomeIcon 
             onClick={editAboutMe}
             icon={faPenToSquare}
-            // size=""
-            className="text-purple-600 ml-auto"
+            className="text-purple-600 ml-auto hover:text-purple-300 cursor-pointer"
              />
           </div>
           <div className="flex flex-col gap-2">
@@ -153,7 +152,8 @@ function TeacherInfo({ setUploading }) {
                 />
               ))}
             </div>
-            <div className='flex gap-10'>
+            <hr className='mt-5'/>
+            <div className='flex gap-10 mt-6 items-center'>
               <h2 className="font-bold text-xl">
                 <FontAwesomeIcon
                   icon={faUpload}

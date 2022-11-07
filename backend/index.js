@@ -12,8 +12,12 @@ app.use(cors({
 }));
 
 app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+  }));
 
 connectionToMongoDB()
+
 app.get('/', (req,res)=> {
     res.send("<h1>Welcome</h1>")
 })
