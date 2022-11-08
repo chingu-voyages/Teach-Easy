@@ -25,9 +25,9 @@ function CheckBoxTag({ value, tagName }) {
   return (
     <button
       onClick={handleClick}
-      className={`filter-tag ${
-        toggle === false ? 'bg-gray-200' : 'bg-purple-600'
-      }`}
+      className={
+        toggle === false ? 'inactive-btn' : 'btn'
+      }
       type="button"
     >
       {value}
