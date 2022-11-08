@@ -1,7 +1,7 @@
 const lessonDocInDB = require('../models/lesson');
 const teacherDocInDB = require('../models/teacher');
 const mongoose = require('mongoose');
-
+const cloudinary = require('../config/cloudinaryConfig')
 
 //GET: search for lesson
 const getLessonDoc = async (req,res) => {
@@ -26,11 +26,18 @@ const postLesson = async(req,res)=> {
     //title, lessonDocument,tags and language are required
     //TODO => add userID
     // console.log(req.body)
-    const lessonDocument =  req.file
-    console.log(lessonDocument)
-    let {id, title, image, teacherName, lessonDescription, tags, language} = req.body;
+    try {
+    // const lessonDocument =  await req.file
+    const result = await cloudinary.uploader.upload(req.file.path)
+    console.log('cloud doc', result);
+    console.log('file doc', req.file)
+    // console.log('file doc path', req.file)
+    const lessonDocumentID = result.public_id;
+    const lessonDocument = result.secure_url;
+
+    let {id, title, image, teacherName, lessonDescription, tags, language} = await req.body;
     tags = tags.split(' ');
-    console.log('id', id, 'title', title, 'lessonDescription', lessonDescription, 'language', language, 'tags', tags)
+    console.log('id', id, 'title', title, 'lessonDescription', lessonDescription, 'language', language, 'tags', tags, 'lessonDocID', lessonDocumentID, 'lessonDoc', lessonDocument, result.secure_url)
     const emptyFields = [];
     if(!title){
         emptyFields.push('Title');
@@ -47,8 +54,8 @@ const postLesson = async(req,res)=> {
     if(emptyFields.length> 0) {
         res.status(400).json({error: 'Please make sure all fields are filled', emptyFields});
     }
-    try {
-        const lesson = await lessonDocInDB.create({teacherId: id, title, image, lessonDescription, teacherName, lessonDocument, tags, language});
+
+        const lesson = await lessonDocInDB.create({teacherId: id, title, image, lessonDescription, teacherName, lessonDocumentID, lessonDocument, tags, language});
         res.status(200).json(lesson);
     } catch (error) {
         res.status(500).json({error: error.message});
@@ -85,7 +92,7 @@ const rateLesson = async (req,res)=> {
                 res.status(400).json({error: "student has already rated this lesson"})
             }
     } catch (error) {
-        
+        console.error('error rating lesson : ', error.message)
     }
 } 
 

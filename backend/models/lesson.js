@@ -16,9 +16,14 @@ const Lesson = new Schema({
     teacherName: {
         type: String
     },
-    lessonDocument:{
-        type: Schema.Types.Mixed,
+    lessonDocumentID:{
+        type: String,
         required: true,
+        unique: true
+    },
+    lessonDocument:{
+        type: String,
+        required: true
     },
     tags:{
         type: Array,

@@ -106,7 +106,7 @@ const UploadModal = ({ setUploading }) => {
             <label htmlFor="lessonTitle">Lesson Title:</label>
             <input 
               type="text" 
-              className='w-full px-2 py-1 rounded-lg my-3 border border-gray-300'
+              className='w-full px-2 py-1 rounded-lg my-3 border bg-gray-200 border-gray-300'
               placeholder='The title of the lesson'
               name="lessonTitle"
               required
