@@ -96,8 +96,8 @@ const UploadModal = ({ setUploading }) => {
         // teacherID: theTecherUID
       };
       // console.log('lessonData: ', lessonData)
-
       sendFormData({ ...lessonData })
+      setUploading(false);
     };
 
   return (
