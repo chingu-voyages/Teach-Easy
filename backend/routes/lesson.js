@@ -10,13 +10,15 @@
 const express = require('express');
 const router = express.Router();
 const {postLesson, getLessonDoc, bookLesson, rateLesson} = require('../controllers/lesson')
+const upload = require("../middleware/multer");
 
+// const upload = multer({ storage: Store });
 //lesson routes
 //lesson search
 router.get('/search/', getLessonDoc);
 
 //lesson uploads
-router.post('/upload/:id', postLesson);
+router.post('/upload/', upload.single('lessonDocument'), postLesson);
 
 //lesson booking => updates teacher form: nextLessonAttendees.
 router.put('/booking/', bookLesson);
