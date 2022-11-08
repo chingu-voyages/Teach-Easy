@@ -5,6 +5,7 @@ const connectionToMongoDB = require('./config/mongodb')
 const PORT = process.env.PORT || 3000;
 const cors = require('cors');
 
+
 //TODO Change '*' to exact origins
 app.use(cors({
     origin: '*',

@@ -10,10 +10,7 @@
 const express = require('express');
 const router = express.Router();
 const {postLesson, getLessonDoc, bookLesson, rateLesson} = require('../controllers/lesson')
-const multer = require('multer');
-const storage = multer.memoryStorage();
-const multerUploads = require('../middleware/multer')
-
+const upload = require("../middleware/multer");
 
 // const upload = multer({ storage: Store });
 //lesson routes
@@ -21,7 +18,7 @@ const multerUploads = require('../middleware/multer')
 router.get('/search/', getLessonDoc);
 
 //lesson uploads
-router.post('/upload/', multerUploads, postLesson);
+router.post('/upload/', upload.single('lessonDocument'), postLesson);
 
 //lesson booking => updates teacher form: nextLessonAttendees.
 router.put('/booking/', bookLesson);
