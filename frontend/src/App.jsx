@@ -5,7 +5,7 @@ import SignupStudent from './components/signup/signupStudent';
 import SignIn from './components/signup/SignIn';
 import StudentProfile from './components/studentDashboard/StudentProfile';
 import Dashboard from './components/studentDashboard/Dashboard';
-import TeacherProfile from './components/teacherProfile/teacherProfile';
+import TeacherProfile from './components/TeacherProfile/TeacherProfile';
 import TeacherDashboard from './components/TeacherDashboard/TeacherDash'
 
 function App() {
