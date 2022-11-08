@@ -5,6 +5,7 @@ const connectionToMongoDB = require('./config/mongodb')
 const PORT = process.env.PORT || 3000;
 const cors = require('cors');
 
+
 //TODO Change '*' to exact origins
 app.use(cors({
     origin: '*',
@@ -12,8 +13,12 @@ app.use(cors({
 }));
 
 app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+  }));
 
 connectionToMongoDB()
+
 app.get('/', (req,res)=> {
     res.send("<h1>Welcome</h1>")
 })

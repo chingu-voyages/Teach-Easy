@@ -49,4 +49,76 @@ body {
   }
   .teacher-item {
   }
+  .btn {
+    @apply px-4 py-2 text-white font-medium text-sm rounded-md  hover:bg-purple-300 bg-purple-600;
+  }
+  .inactive-btn{
+    @apply px-4 py-2 font-medium text-sm rounded-md  bg-gray-300 hover:bg-purple-300;
+  }
+}
+
+.upload-form{
+  background-color: #a1a1a1ae;
+  display: flex;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.4s ease-in forwards;
+
+  >form{
+    background-color: #FFF;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 7px 5px 6px rgb(163, 160, 160);
+    padding: 1.5rem 1rem;
+    margin: 1rem auto;
+    width: 90%;
+    max-width: 600px;
+
+    textarea{
+      max-height: 150px;
+      min-height: 3rem;
+      background: #E5E7EB;
+    }
+
+    hr{
+      display: inline-block;
+      border: .5px solid rgba(191, 188, 188, 0.738);
+      width: 100%;
+      margin: 1rem 0;
+    }
+  }
+
+  @media only screen and (min-width: 550px) {
+    >div{
+        width: 50rem;
+        height: 30rem;
+    }
+  }
+  
+  @media only screen and (max-width: 300px) {
+  >div{
+      height: 37rem;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  50%{
+      opacity: 0.5;
+  }
+  100% {
+      opacity: 1;
+  }
 }
