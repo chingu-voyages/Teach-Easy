@@ -58,7 +58,7 @@ const TopNavbar = () => {
             <li className="nav-item">
               <NavLink
                 activeClassName="active"
-                className="nav-links resume"
+                className="nav-links"
                 onClick={click ? handleClick : null}
                 to="/login"
               >
