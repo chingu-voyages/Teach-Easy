@@ -9,12 +9,16 @@ const getLessonDoc = async (req,res) => {
     // word search not set up yet
     // const {tags, wordSearch} = req.query;
     const tags = req.query.tags;
+    const wordSearch = req.query.searchData;
+    console.log('wordSearch var: ', wordSearch);
+    console.log('tags var: ', tags);
+    console.log('combined: ', tags.split(',').join(' ') + ' ' + wordSearch)
     try {
-        const lessons = await lessonDocInDB.find({ tags : { $in : tags.split(',').map(elem=> elem) }});
-        const arrayLength = lessons[0].rating.rateGiven.length;
-        const averageRating = (lessons[0].rating.rateGiven.reduce((a,b)=> +a + +b))/arrayLength;
-        //average rating is returned for frontend display only
-        res.status(200).json({...lessons, averageRating: averageRating});
+        const tagAndWords = tags.split(',').join(' ') + ' ' + wordSearch;
+        const lessons = await lessonDocInDB.find({ $text: {$search: wordSearch} }, 
+                        { score: {$meta: "textScore"}}).sort({ score:  { $meta: "textScore"}});
+        console.log('lessons found: ', lessons);
+        res.status(200).json({ lessons });
     } catch (error) {
         res.status(500).json({error: error.message});
     }

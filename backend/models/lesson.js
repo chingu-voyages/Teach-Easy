@@ -42,4 +42,6 @@ const Lesson = new Schema({
         default: Date.now
     }
 })
+
+Lesson.index({ title: 'text', lessonDescription: 'text', language: 'text', tags: 'text' });
 module.exports = mongoose.model('Lesson', Lesson)
