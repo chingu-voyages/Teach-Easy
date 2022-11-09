@@ -24,6 +24,28 @@ body {
   margin: 0;
 }
 
+.container {
+  padding: 0 20px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1440px;
+  }
+}
+
 @layer components {
   .heading-text {
     @apply font-sans  font-semibold	text-4xl;
@@ -52,12 +74,12 @@ body {
   .btn {
     @apply px-4 py-2 text-white font-medium text-sm rounded-md  hover:bg-purple-300 bg-purple-600;
   }
-  .inactive-btn{
+  .inactive-btn {
     @apply px-4 py-2 font-medium text-sm rounded-md  bg-gray-300 hover:bg-purple-300;
   }
 }
 
-.upload-form{
+.upload-form {
   background-color: #a1a1a1ae;
   display: flex;
   position: fixed;
@@ -71,8 +93,8 @@ body {
   justify-content: center;
   animation: fadeIn 0.4s ease-in forwards;
 
-  >form{
-    background-color: #FFF;
+  > form {
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     border-radius: 1rem;
@@ -83,29 +105,29 @@ body {
     width: 90%;
     max-width: 600px;
 
-    textarea{
+    textarea {
       max-height: 150px;
       min-height: 3rem;
-      background: #E5E7EB;
+      background: #e5e7eb;
     }
 
-    hr{
+    hr {
       display: inline-block;
-      border: .5px solid rgba(191, 188, 188, 0.738);
+      border: 0.5px solid rgba(191, 188, 188, 0.738);
       width: 100%;
       margin: 1rem 0;
     }
   }
 
   @media only screen and (min-width: 550px) {
-    >div{
-        width: 50rem;
-        height: 30rem;
+    > div {
+      width: 50rem;
+      height: 30rem;
     }
   }
-  
+
   @media only screen and (max-width: 300px) {
-  >div{
+    > div {
       height: 37rem;
     }
   }
@@ -113,12 +135,12 @@ body {
 
 @keyframes fadeIn {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
-  50%{
-      opacity: 0.5;
+  50% {
+    opacity: 0.5;
   }
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
