@@ -6,12 +6,15 @@ import SignIn from './components/signup/SignIn';
 import StudentProfile from './components/studentDashboard/StudentProfile';
 import Dashboard from './components/studentDashboard/Dashboard';
 import TeacherProfile from './components/TeacherProfile/TeacherProfile';
-import TeacherDashboard from './components/TeacherDashboard/TeacherDash'
+import TeacherDashboard from './components/TeacherDashboard/TeacherDash';
+import TopNavbar from './components/TopNavbar/TopNavbar';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
     <div className="app">
       <Router>
+        <TopNavbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<SignIn />} />
@@ -21,6 +24,7 @@ function App() {
           <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
           <Route path="/sampleTeacherProfile" element={<TeacherProfile />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );
