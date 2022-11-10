@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getDash, updateDash } = require('../controllers/student')
+const { getDash, updateDash, searchForTeacher } = require('../controllers/student')
 //student routes
 //student dashboard creation
 //NOT NEEDED now, as we create the sceham at sign up and can use the PUT to update fields
@@ -13,6 +13,8 @@ router.get('/dashboard', getDash)
 
 //student dashboard update
 router.put('/dashboard/update', updateDash);
+
+router.get('/findTeacher', searchForTeacher)
 
 
 module.exports = router;
