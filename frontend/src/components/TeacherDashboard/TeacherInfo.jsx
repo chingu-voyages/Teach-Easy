@@ -37,7 +37,7 @@ function CheckBoxTag({ value, tagName }) {
   );
 }
 
-function TeacherInfo({ setUploading, userId }) {
+function TeacherInfo({ setUploading }) {
   const [tags, setTags] = React.useState([]);
   const [dashboardData, setDashboardData] = useState(null);
 
@@ -57,8 +57,10 @@ function TeacherInfo({ setUploading, userId }) {
 
   const fetchData = () => {
     let url = new URL('http://localhost:3000/teacher/dashboard');
-
-    url.searchParams.append('id', userId);
+    url.searchParams.append(
+      'id',
+      window.localStorage.getItem('uid') || window.sessionStorage.getItem('uid')
+    );
 
     fetch(url, {
       headers: {

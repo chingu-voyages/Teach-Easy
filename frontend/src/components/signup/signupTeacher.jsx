@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import SignupForm from './signupForm';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+} from 'firebase/auth';
 import { auth } from '../../config/firebase-config';
 
 function SignupTeacher() {
@@ -52,6 +57,9 @@ function SignupTeacher() {
           loginID: result.user.uid,
         };
         fetchData(user);
+        // signup via google = uid in session storage only
+        window.sessionStorage.setItem('uid', user.loginID);
+        window.localStorage.removeItem('uid');
       })
       .catch((error) => {
         // Handle Errors here.
@@ -65,37 +73,52 @@ function SignupTeacher() {
       });
   };
 
-  const emailAndPWSignUp = ({firstName, lastName, email, password}) => {
+  const emailAndPWSignUp = ({
+    firstName,
+    lastName,
+    email,
+    password,
+    rememberme,
+  }) => {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      const signUpData = {
-        firstName,
-        lastName,
-        email: user.email,
-        loginID: user.uid
-      }
-      fetchData(signUpData)
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log('Sign in Error: ',errorCode)
-    }); 
-  }
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        const signUpData = {
+          firstName,
+          lastName,
+          email: user.email,
+          loginID: user.uid,
+        };
+        fetchData(signUpData);
+        if (rememberme) {
+          window.localStorage.setItem('uid', loginData.loginID);
+          window.sessionStorage.removeItem('uid');
+        } else {
+          window.sessionStorage.setItem('uid', loginData.loginID);
+          window.localStorage.removeItem('uid');
+        }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('Sign in Error: ', errorCode);
+      });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { firstName, lastName, email, password } = event.target.elements;
+    const { firstName, lastName, email, password, rememberme } =
+      event.target.elements;
     const data = {
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value,
       password: password.value,
+      rememberme: rememberme.checked,
     };
-    emailAndPWSignUp({...data})
+    emailAndPWSignUp({ ...data });
   };
   return (
     <div className="signup-page_wrapper h-screen	">
