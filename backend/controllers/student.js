@@ -1,5 +1,6 @@
 const lessonDocInDB = require('../models/lesson');
 const studentDocInDB = require('../models/student');
+const teacherDocInDB =require('../models/teacher')
 const mongoose = require('mongoose');
 
 //POST: create student profile
@@ -56,4 +57,24 @@ const updateDash = async (req,res)=>{
     }
 }
 
-module.exports = { getDash, updateDash, createStudentProfile }
+const searchForTeacher = async (req,res) => {
+    const tags = req.query.tags
+    const wordSearch = req.query.searchData;
+    try {
+        if(tags){
+            const tagAndWords = tags.split(',').join(' ') + ' ' + wordSearch;
+            const teachers = await teacherDocInDB.find({ $text: {$search: tagAndWords} }, 
+                { score: {$meta: "textScore"}}).sort({ score:  { $meta: "textScore"}});
+                res.status(200).json({ teachers });
+        }
+        else {
+            const teachers = await teacherDocInDB.find({ $text: {$search: wordSearch} }, 
+                { score: {$meta: "textScore"}}).sort({ score:  { $meta: "textScore"}});
+                res.status(200).json({ teachers });
+        }
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+};
+
+module.exports = { getDash, updateDash, createStudentProfile, searchForTeacher }
