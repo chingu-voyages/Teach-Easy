@@ -33,7 +33,7 @@ function CheckBoxTag({ value, tagName }) {
   );
 }
 
-function StudentProfile({ userId }) {
+function StudentProfile() {
   const [tags, setTags] = React.useState([]);
   const [dashboardData, setDashboardData] = useState(null);
 
@@ -43,8 +43,10 @@ function StudentProfile({ userId }) {
 
   const fetchData = () => {
     let url = new URL('http://localhost:3000/student/dashboard');
-
-    url.searchParams.append('id', userId);
+    url.searchParams.append(
+      'id',
+      window.localStorage.getItem('uid') || window.sessionStorage.getItem('uid')
+    );
 
     fetch(url, {
       headers: {

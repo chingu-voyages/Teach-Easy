@@ -9,7 +9,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '../../config/firebase-config';
 
-function SignIn({ updateUid }) {
+function SignIn() {
   const [userAuth, setUserAuth] = useState(false);
   const navigate = useNavigate();
   //After fetch is complete and all data is sent to the backend this navigate function direct to the user page.
@@ -55,7 +55,9 @@ function SignIn({ updateUid }) {
           loginID: result.user.uid,
         };
         fetchData(user);
-        updateUid(user.loginID);
+        // Logging in via google = session storage
+        window.sessionStorage.setItem('uid', user.loginID);
+        window.localStorage.removeItem('uid');
       })
       .catch((error) => {
         // Handle Errors here.
@@ -69,7 +71,7 @@ function SignIn({ updateUid }) {
       });
   };
 
-  const emailAndPWSignIn = ({ email, password }) => {
+  const emailAndPWSignIn = ({ email, password, rememberme }) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -80,7 +82,14 @@ function SignIn({ updateUid }) {
           loginID: user.uid,
         };
         fetchData(loginData);
-        updateUid(loginData.loginID);
+
+        if (rememberme) {
+          window.localStorage.setItem('uid', loginData.loginID);
+          window.sessionStorage.removeItem('uid');
+        } else {
+          window.sessionStorage.setItem('uid', loginData.loginID);
+          window.localStorage.removeItem('uid');
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -91,11 +100,12 @@ function SignIn({ updateUid }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { email, password } = event.target.elements;
+    const { email, password, rememberme } = event.target.elements;
 
     const data = {
       email: email.value,
       password: password.value,
+      rememberme: rememberme.checked,
     };
     emailAndPWSignIn({ ...data });
   };

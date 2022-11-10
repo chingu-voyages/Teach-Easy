@@ -12,32 +12,17 @@ import TopNavbar from './components/TopNavbar/TopNavbar';
 import Footer from './components/Footer/Footer';
 
 function App() {
-  const [uid, setUid] = useState('uid');
-
-  const handleUidUpdate = (uid) => {
-    setUid(uid);
-  };
-
   return (
     <div className="app">
       <Router>
         <TopNavbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route
-            path="/login"
-            element={<SignIn updateUid={handleUidUpdate} />}
-          />
+          <Route path="/login" element={<SignIn />} />
           <Route path="/signup-teacher" element={<SignupTeacher />} />
           <Route path="/signup-student" element={<SignupStudent />} />
-          <Route
-            path="/student-dashboard"
-            element={<Dashboard userId={uid} />}
-          />
-          <Route
-            path="/teacher-dashboard"
-            element={<TeacherDashboard userId={uid} />}
-          />
+          <Route path="/student-dashboard" element={<Dashboard />} />
+          <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
           <Route path="/sampleTeacherProfile" element={<TeacherProfile />} />
         </Routes>
         <Footer />
