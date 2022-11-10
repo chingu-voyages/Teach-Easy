@@ -27,7 +27,7 @@ const TopNavbar = () => {
           <ul className={click ? 'nav-menu active' : 'nav-menu'}>
             <li className="nav-item">
               <NavLink
-                activeClassName="active"
+                activeclassname="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
                 to="/teachers"
@@ -37,7 +37,7 @@ const TopNavbar = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                activeClassName="active"
+                activeclassname="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
                 to="/lessons"
@@ -47,7 +47,7 @@ const TopNavbar = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                activeClassName="active"
+                activeclassname="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
                 to="/Donate"
@@ -57,7 +57,7 @@ const TopNavbar = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                activeClassName="active"
+                activeclassname="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
                 to="/login"
