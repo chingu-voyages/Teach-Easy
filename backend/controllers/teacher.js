@@ -23,20 +23,8 @@ const createTeacherProfile = async (req,res)=>{
     }
 }
 
-//GET: search lesson Docs
-const getLessonDoc = async (req,res) => {
-    // Tags from req.query receives an array in url/search?tags=item1,item2... format, whilst word search can receive a string.
-    // word search not set up yet
-    // const {tags, wordSearch} = req.query;
-    const tags = req.query.tags;
-    try {
-        const lessons = await lessonDocInDB.find({ tags : { $in : tags.split(',').map(elem=> elem) }});
-        console.log('found', lessons);
-        res.status(200).json(lessons);
-    } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-};
+//GET: search lesson Docs => can be found in lesson controller
+
 
 //GET: teacher profile details
 const getProfile = async (req,res) => {
@@ -85,4 +73,4 @@ const getDash = async (req,res) => {
 //TODO: PUT: when teacher wants to create a ìn event date/lesson
 
 
-module.exports = { getLessonDoc, getProfile, updateProfile, getDash, createTeacherProfile }
+module.exports = { getProfile, updateProfile, getDash, createTeacherProfile }
