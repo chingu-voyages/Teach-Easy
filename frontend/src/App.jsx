@@ -34,7 +34,10 @@ function App() {
             path="/student-dashboard"
             element={<Dashboard userId={uid} />}
           />
-          <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
+          <Route
+            path="/teacher-dashboard"
+            element={<TeacherDashboard userId={uid} />}
+          />
           <Route path="/sampleTeacherProfile" element={<TeacherProfile />} />
         </Routes>
         <Footer />

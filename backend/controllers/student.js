@@ -28,7 +28,7 @@ const createStudentProfile = async (req, res) => {
 //GET: retrieve info for student dashboard
 const getDash = async (req, res) => {
   const { id } = req.query;
-  console.log("getDash, uid: ", id);
+  console.log("student getDash, uid: ", id);
   try {
     const dash = await studentDocInDB.find({ loginID: id }).select({
       firstName: 1,

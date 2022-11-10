@@ -37,7 +37,6 @@ function StudentProfile({ userId }) {
   const [tags, setTags] = React.useState([]);
   const [dashboardData, setDashboardData] = useState(null);
 
-  // test: fetch profile image from DB
   useEffect(() => {
     fetchData();
   }, []);
@@ -89,7 +88,7 @@ function StudentProfile({ userId }) {
         <div className="grid-item">
           <div className="flex-item  flex flex-row gap-3 mb-4">
             <img
-              src={ImagePlaceholder}
+              src={(dashboardData && dashboardData.image) || ImagePlaceholder}
               className="w-10 h-10 rounded-full"
               alt="profile picture"
             />

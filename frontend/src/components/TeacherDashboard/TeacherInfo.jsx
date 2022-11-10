@@ -6,7 +6,7 @@ import {
   faGraduationCap,
   faChalkboardUser,
   faPenToSquare,
-  faUpload
+  faUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
@@ -37,9 +37,9 @@ function CheckBoxTag({ value, tagName }) {
   );
 }
 
-function TeacherInfo({ setUploading }) {
+function TeacherInfo({ setUploading, userId }) {
   const [tags, setTags] = React.useState([]);
-  const [data, setData] = useState(null);
+  const [dashboardData, setDashboardData] = useState(null);
 
   const tagNames = [
     'Beginner',
@@ -51,13 +51,37 @@ function TeacherInfo({ setUploading }) {
     'Grammar',
   ];
 
-  const uploadLesson = () => {
-    setUploading(prev => !prev);
-  }
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  const editAboutMe = ()=> {
-    console.log('clicked')
-  }
+  const fetchData = () => {
+    let url = new URL('http://localhost:3000/teacher/dashboard');
+
+    url.searchParams.append('id', userId);
+
+    fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'GET',
+      mode: 'cors',
+    })
+      .then((res) => {
+        res.json().then((data) => setDashboardData(data[0]));
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  const uploadLesson = () => {
+    setUploading((prev) => !prev);
+  };
+
+  const editAboutMe = () => {
+    console.log('clicked');
+  };
 
   const handleTags = (e) => {
     const value = e.value;
@@ -70,24 +94,26 @@ function TeacherInfo({ setUploading }) {
     }
   };
 
-  useEffect(() => {
-    fetch('localhost/3000').then((res) => setData(res.data));
-  }, []);
-
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
       <div className="py-5 flex flex-col gap-6">
         <div className="grid-item">
           <div className="flex-item  flex flex-row gap-3 mb-4">
             <img
-              src={ImagePlaceholder}
+              src={(dashboardData && dashboardData.image) || ImagePlaceholder}
               className="w-10 h-10 rounded-full"
               alt="profile picture"
             />
-            <h3 className="font-bold text-lg">Teacher Name</h3>
+            <h3 className="font-bold text-lg">
+              {(dashboardData && dashboardData.firstName) || 'Teacher'}{' '}
+              {(dashboardData && dashboardData.lastName) || ''}
+            </h3>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-bold text-xl">Welcome back, Teacher Name</p>
+            <p className="font-bold text-xl">
+              Welcome back,{' '}
+              {(dashboardData && dashboardData.firstName) || 'Teacher'}
+            </p>
 
             <p className="leading-relaxed">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit a
@@ -104,23 +130,21 @@ function TeacherInfo({ setUploading }) {
               className=" text-purple-600"
             />
             <h3 className="font-bold text-lg">About Me </h3>
-            <FontAwesomeIcon 
-            onClick={editAboutMe}
-            icon={faPenToSquare}
-            className="text-purple-600 ml-auto hover:text-purple-300 cursor-pointer"
-             />
+            <FontAwesomeIcon
+              onClick={editAboutMe}
+              icon={faPenToSquare}
+              className="text-purple-600 ml-auto hover:text-purple-300 cursor-pointer"
+            />
           </div>
           <div className="flex flex-col gap-2">
             <p>
               <strong>Education</strong> University of ....
             </p>
             <p>
-              <strong>Teaching style </strong> 
+              <strong>Teaching style </strong>
             </p>
             <strong>Languages taught</strong>
-            <p>
-              English, Spanish ...
-            </p>
+            <p>English, Spanish ...</p>
           </div>
         </div>
       </div>
@@ -152,8 +176,8 @@ function TeacherInfo({ setUploading }) {
                 />
               ))}
             </div>
-            <hr className='mt-5'/>
-            <div className='flex gap-10 mt-6 items-center'>
+            <hr className="mt-5" />
+            <div className="flex gap-10 mt-6 items-center">
               <h2 className="font-bold text-xl">
                 <FontAwesomeIcon
                   icon={faUpload}
@@ -161,11 +185,10 @@ function TeacherInfo({ setUploading }) {
                   className=" text-purple-600 mr-2"
                 />
                 Upload a lesson
-              </h2> 
-              <button 
-              className='btn'
-              onClick={uploadLesson}
-              >Upload</button>
+              </h2>
+              <button className="btn" onClick={uploadLesson}>
+                Upload
+              </button>
             </div>
           </div>
         </div>

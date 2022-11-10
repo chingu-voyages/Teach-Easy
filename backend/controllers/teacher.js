@@ -84,26 +84,26 @@ const updateProfile = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 //GET: dashboard information
 const getDash = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.query;
+  console.log("teacher getDash, uid: ", id);
   try {
-    const dash = await teacherDocInDB
-      .find({ _id: id })
-      .select({
-        nextLessonDate: 1,
-        firstName: 1,
-        lastName: 1,
-        email: 1,
-        role: 1,
-        language: 1,
-        image: 1,
-        meetingLinks: 1,
-        nextLessonDate: 1,
-        nextLessonAttendees: 1,
-        _id: 0,
-        loginID: 1,
-      });
+    const dash = await teacherDocInDB.find({ loginID: id }).select({
+      nextLessonDate: 1,
+      firstName: 1,
+      lastName: 1,
+      email: 1,
+      role: 1,
+      language: 1,
+      image: 1,
+      meetingLinks: 1,
+      nextLessonDate: 1,
+      nextLessonAttendees: 1,
+      _id: 0,
+      loginID: 1,
+    });
     res.status(200).json(dash);
   } catch (error) {
     res.status(500).json({ error: error.message });
