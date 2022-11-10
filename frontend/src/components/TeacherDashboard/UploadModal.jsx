@@ -83,22 +83,58 @@ const UploadModal = ({ setUploading }) => {
       }
     };
 
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      const { lessonTitle, lessonDescription, lessonDocument } = event.target.elements;
-      const lessonData = {
-        lessonTitle: lessonTitle.value,
-        lessonDescription: lessonDescription.value,
-        tags,
-        language: 'English',
-        lessonDocument: lessonDocument.files[0],
-        id: 'TestID'
-        // teacherID: theTecherUID
-      };
-      // console.log('lessonData: ', lessonData)
-      sendFormData({ ...lessonData })
-      setUploading(false);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { lessonTitle, lessonDescription, lessonDocument, language } = event.target.elements;
+    const lessonData = {
+      lessonTitle: lessonTitle.value,
+      lessonDescription: lessonDescription.value,
+      tags,
+      language: language.value,
+      lessonDocument: lessonDocument.files[0],
+      id: 'TestID'
+      // teacherID: theTecherUID
     };
+
+    sendFormData({ ...lessonData })
+    setUploading(false);
+  };
+
+  const options = [
+
+    {
+      label: "English",
+      value: "English",
+    },
+    {
+      label: "Spanish",
+      value: "Spanish",
+    },
+    {
+      label: "French",
+      value: "French",
+    },
+    {
+      label: "Italian",
+      value: "Italian",
+    },
+    {
+      label: "Arabic",
+      value: "Arabic",
+    },
+    {
+      label: "Madarin",
+      value: "Mandarin",
+    },
+    {
+      label: "Russian",
+      value: "Russian",
+    },
+    {
+      label: "Portugese",
+      value: "Portugese",
+    },
+  ];
 
   return (
     <div className='upload-form'>
@@ -126,8 +162,21 @@ const UploadModal = ({ setUploading }) => {
             name="lessonDocument"
             placeholder="Upload here"
             />
+            <div>
+            <select 
+            className='w-full px-2 py-1 rounded-lg my-3 border bg-gray-200 border-gray-300'
+            name="language"
+            >
+              {options.map((option) => (
+                <option 
+                key={option.value}
+                >{option.label}
+                </option>
+              ))}
+            </select>
+            </div>
 
-        <div className="flex-item  flex flex-col gap-3 mb-4">
+        <div className="flex-item  flex flex-col gap-3 mb-4 my-2">
             <h2 className="font-bold text-xl">
             <FontAwesomeIcon
                 icon={faTag}
