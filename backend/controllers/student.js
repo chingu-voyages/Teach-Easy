@@ -60,15 +60,9 @@ const updateDash = async (req,res)=>{
 const searchForTeacher = async (req,res) => {
     const tags = req.query.tags
     const wordSearch = req.query.searchData;
-    console.log('wordSearch var: ', wordSearch);
-    console.log('tags var: ', tags);
-    // console.log('combined: ', tags.split(',').join(' ') + ' ' + wordSearch)
-    //TODO: test for both with and without tags
-    //TODO: check lesson search with adn without tags funcionality.
     try {
         if(tags){
             const tagAndWords = tags.split(',').join(' ') + ' ' + wordSearch;
-            console.log('tags&Words: ', tagAndWords)
             const teachers = await teacherDocInDB.find({ $text: {$search: tagAndWords} }, 
                 { score: {$meta: "textScore"}}).sort({ score:  { $meta: "textScore"}});
                 console.log('teachers found: ', teachers);
@@ -77,7 +71,6 @@ const searchForTeacher = async (req,res) => {
         else {
             const teachers = await teacherDocInDB.find({ $text: {$search: wordSearch} }, 
                 { score: {$meta: "textScore"}}).sort({ score:  { $meta: "textScore"}});
-                console.log('teachers found: ', teachers);
                 res.status(200).json({ teachers });
         }
     } catch (error) {
