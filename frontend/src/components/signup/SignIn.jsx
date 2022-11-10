@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import SignInForm from './SignInForm';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { auth } from '../../config/firebase-config';
 
-function SignIn() {
+function SignIn({ updateUid }) {
   const [userAuth, setUserAuth] = useState(false);
   const navigate = useNavigate();
   //After fetch is complete and all data is sent to the backend this navigate function direct to the user page.
@@ -50,6 +55,7 @@ function SignIn() {
           loginID: result.user.uid,
         };
         fetchData(user);
+        updateUid(user.loginID);
       })
       .catch((error) => {
         // Handle Errors here.
@@ -63,25 +69,25 @@ function SignIn() {
       });
   };
 
-  const emailAndPWSignIn = ({email, password}) => {
+  const emailAndPWSignIn = ({ email, password }) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      const loginData = {
-        email: user.email,
-        loginID: user.uid
-      }
-      console.log(loginData)
-      fetchData(loginData)
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log('Sign in Error: ',errorCode)
-    }); 
-  }
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        const loginData = {
+          email: user.email,
+          loginID: user.uid,
+        };
+        fetchData(loginData);
+        updateUid(loginData.loginID);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('Sign in Error: ', errorCode);
+      });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -91,8 +97,7 @@ function SignIn() {
       email: email.value,
       password: password.value,
     };
-    emailAndPWSignIn({...data})
-
+    emailAndPWSignIn({ ...data });
   };
 
   return (
