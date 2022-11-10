@@ -25,9 +25,7 @@ function CheckBoxTag({ value, tagName }) {
   return (
     <button
       onClick={handleClick}
-      className={
-        toggle === false ? 'inactive-btn' : 'btn'
-      }
+      className={toggle === false ? 'inactive-btn' : 'btn'}
       type="button"
     >
       {value}
@@ -35,9 +33,34 @@ function CheckBoxTag({ value, tagName }) {
   );
 }
 
-function StudentProfile() {
+function StudentProfile({ userId }) {
   const [tags, setTags] = React.useState([]);
-  const [data, setData] = useState(null);
+  const [dashboardData, setDashboardData] = useState(null);
+
+  // test: fetch profile image from DB
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    let url = new URL('http://localhost:3000/student/dashboard');
+
+    url.searchParams.append('id', userId);
+
+    fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'GET',
+      mode: 'cors',
+    })
+      .then((res) => {
+        res.json().then((data) => setDashboardData(data[0]));
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
   const tagNames = [
     'Beginner',
@@ -60,10 +83,6 @@ function StudentProfile() {
     }
   };
 
-  useEffect(() => {
-    fetch('localhost/3000').then((res) => setData(res.data));
-  }, []);
-
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
       <div className=" py-5 flex flex-col gap-6">
@@ -74,10 +93,16 @@ function StudentProfile() {
               className="w-10 h-10 rounded-full"
               alt="profile picture"
             />
-            <h3 className="font-bold text-lg">student name</h3>
+            <h3 className="font-bold text-lg">
+              {(dashboardData && dashboardData.firstName) || 'Student'}{' '}
+              {(dashboardData && dashboardData.lastName) || ''}
+            </h3>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-bold text-xl">Welcome back, student name</p>
+            <p className="font-bold text-xl">
+              Welcome back,{' '}
+              {(dashboardData && dashboardData.firstName) || 'Student'}
+            </p>
 
             <p className="leading-relaxed">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit a
