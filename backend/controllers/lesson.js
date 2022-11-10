@@ -10,15 +10,18 @@ const getLessonDoc = async (req,res) => {
     // const {tags, wordSearch} = req.query;
     const tags = req.query.tags;
     const wordSearch = req.query.searchData;
-    console.log('wordSearch var: ', wordSearch);
-    console.log('tags var: ', tags);
-    console.log('combined: ', tags.split(',').join(' ') + ' ' + wordSearch)
     try {
-        const tagAndWords = tags.split(',').join(' ') + ' ' + wordSearch;
-        const lessons = await lessonDocInDB.find({ $text: {$search: wordSearch} }, 
-                        { score: {$meta: "textScore"}}).sort({ score:  { $meta: "textScore"}});
-        console.log('lessons found: ', lessons);
-        res.status(200).json({ lessons });
+        if(tags){
+            const tagAndWords = tags.split(',').join(' ') + ' ' + wordSearch;
+            const lessons = await lessonDocInDB.find({ $text: {$search: tagAndWords} }, 
+                { score: {$meta: "textScore"}}).sort({ score:  { $meta: "textScore"}});
+                res.status(200).json({ lessons });
+            }
+        else{
+            const lessons = await lessonDocInDB.find({ $text: {$search: wordSearch} }, 
+                { score: {$meta: "textScore"}}).sort({ score:  { $meta: "textScore"}});
+            res.status(200).json({ lessons });
+            }
     } catch (error) {
         res.status(500).json({error: error.message});
     }

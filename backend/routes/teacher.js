@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { getLessonDoc, getProfile, updateProfile, getDash } = require('../controllers/teacher')
+const { getProfile, updateProfile, getDash } = require('../controllers/teacher')
+const { getLessonDoc } = require('../controllers/lesson')
 //teacher routes
 
-//GET: teacher search
+//GET: teacher's search for a lesson
 router.get('/search', getLessonDoc);
 
 //GET: teacher profile details

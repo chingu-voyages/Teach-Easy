@@ -65,7 +65,6 @@ const searchForTeacher = async (req,res) => {
             const tagAndWords = tags.split(',').join(' ') + ' ' + wordSearch;
             const teachers = await teacherDocInDB.find({ $text: {$search: tagAndWords} }, 
                 { score: {$meta: "textScore"}}).sort({ score:  { $meta: "textScore"}});
-                console.log('teachers found: ', teachers);
                 res.status(200).json({ teachers });
         }
         else {
