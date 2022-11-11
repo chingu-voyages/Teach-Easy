@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './goal.scss';
 function GoalTeacher() {
-  const [language, setlanguage] = useState({ value: '' });
+  const [language, setlanguage] = useState({ value: 'English' });
   const [level, setlevel] = useState('');
   const [bio, setBio] = useState({ value: '' });
   const [step, setStep] = useState([true, false, false]);
