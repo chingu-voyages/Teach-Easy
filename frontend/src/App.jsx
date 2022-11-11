@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Homepage from './components/homepage/homepage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignupTeacher from './components/signup/signupTeacher';
