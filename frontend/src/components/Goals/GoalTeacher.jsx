@@ -27,7 +27,7 @@ function GoalTeacher() {
         <div className="steps">
           <div className={step[0] ? 'step active' : 'step'}>
             <h3 className="py-5 text-2xl ">
-              What is the main language you want to teach ?
+              What is the main language you want to teach?
             </h3>
             <select
               value={language.value}
