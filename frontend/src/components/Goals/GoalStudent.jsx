@@ -27,7 +27,7 @@ function GoalStudent() {
         <div className="steps">
           <div className={step[0] ? 'step active' : 'step'}>
             <h3 className="py-5 text-2xl ">
-              Which language do you want to learn ?
+              Which language do you want to learn?
             </h3>
             <div className="options">
               {languages.map((item, k) => {
