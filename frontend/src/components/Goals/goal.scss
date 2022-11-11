@@ -1,0 +1,63 @@
+.step {
+  display: none;
+}
+.step.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5vh;
+}
+.answer {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  padding: 15px;
+  margin: 10px 0;
+}
+.selected {
+  border: 2px solid #4338ca;
+  color: #3930a7;
+  font-weight: 600;
+}
+.next {
+  background: linear-gradient(30deg, #2c2395, #7369ff);
+  padding: 10px 20px;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: all 0.3s;
+  &:hover {
+    background: linear-gradient(30deg, #2c2395, #4942b4);
+  }
+}
+.prev {
+  background: #383e50ab;
+  padding: 10px 15px;
+  color: white;
+  border-radius: 10px;
+  transition: all 0.3s;
+  &:hover {
+    background: #262a36;
+  }
+}
+.teachergoal {
+  .step {
+    select {
+      max-width: 400px;
+      padding: 15px !important;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+      background: white;
+    }
+    .bio {
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      height: 120px;
+      max-width: 400px;
+      padding: 10px;
+      color: #333;
+      resize: none;
+    }
+  }
+}
