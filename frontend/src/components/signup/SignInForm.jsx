@@ -38,12 +38,12 @@ function SignInForm({ handleSubmit, role, googleSignIn }) {
           <input
             className="mr-1 border-none"
             type="checkbox"
-            id="remember-me"
-            name="remember-me"
+            id="rememberme"
+            name="rememberme"
           />
           <label
             className="font-bold text-gray-500 text-sm"
-            htmlFor="remember-me"
+            htmlFor="rememberme"
           >
             Remember me
           </label>

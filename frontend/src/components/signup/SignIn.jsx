@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import SignInForm from './SignInForm';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { auth } from '../../config/firebase-config';
 
 function SignIn() {
@@ -50,6 +55,9 @@ function SignIn() {
           loginID: result.user.uid,
         };
         fetchData(user);
+        // Logging in via google = session storage
+        window.sessionStorage.setItem('uid', user.loginID);
+        window.localStorage.removeItem('uid');
       })
       .catch((error) => {
         // Handle Errors here.
@@ -63,36 +71,43 @@ function SignIn() {
       });
   };
 
-  const emailAndPWSignIn = ({email, password}) => {
+  const emailAndPWSignIn = ({ email, password, rememberme }) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      const loginData = {
-        email: user.email,
-        loginID: user.uid
-      }
-      console.log(loginData)
-      fetchData(loginData)
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log('Sign in Error: ',errorCode)
-    }); 
-  }
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        const loginData = {
+          email: user.email,
+          loginID: user.uid,
+        };
+        fetchData(loginData);
+
+        if (rememberme) {
+          window.localStorage.setItem('uid', loginData.loginID);
+          window.sessionStorage.removeItem('uid');
+        } else {
+          window.sessionStorage.setItem('uid', loginData.loginID);
+          window.localStorage.removeItem('uid');
+        }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('Sign in Error: ', errorCode);
+      });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { email, password } = event.target.elements;
+    const { email, password, rememberme } = event.target.elements;
 
     const data = {
       email: email.value,
       password: password.value,
+      rememberme: rememberme.checked,
     };
-    emailAndPWSignIn({...data})
-
+    emailAndPWSignIn({ ...data });
   };
 
   return (
