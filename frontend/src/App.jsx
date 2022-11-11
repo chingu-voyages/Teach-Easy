@@ -11,6 +11,9 @@ import TeacherDashboard from './components/TeacherDashboard/TeacherDash';
 import TopNavbar from './components/TopNavbar/TopNavbar';
 import Footer from './components/Footer/Footer';
 
+import GoalStudent from './components/Goals/GoalStudent';
+import GoalTeacher from './components/Goals/GoalTeacher';
+
 function App() {
   return (
     <div className="app">
@@ -24,6 +27,9 @@ function App() {
           <Route path="/student-dashboard" element={<Dashboard />} />
           <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
           <Route path="/sampleTeacherProfile" element={<TeacherProfile />} />
+
+          <Route path="/setgoals" element={<GoalStudent />} />
+          <Route path="/setprofile" element={<GoalTeacher />} />
         </Routes>
         <Footer />
       </Router>

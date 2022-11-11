@@ -36,6 +36,14 @@ const Footer = () => {
             {/* TODO: remove when profile is accessible from dashboard or search */}
             teacher-Dash
           </Link>
+          <Link className="text-sm text-pink-300" to="/setgoals">
+            {/* TODO: remove when profile is accessible from dashboard or search */}
+            Student goals
+          </Link>
+          <Link className="text-sm text-pink-300" to="/setprofile">
+            {/* TODO: remove when profile is accessible from dashboard or search */}
+            Teacher goals
+          </Link>
         </div>
         {/*end */}
         <div className="w-full flex flex-wrap gap-[4%] py-10 items-center justify-center">
