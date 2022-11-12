@@ -6,6 +6,7 @@ import SignIn from './components/signup/SignIn';
 import StudentProfile from './components/studentDashboard/StudentProfile';
 import Dashboard from './components/studentDashboard/Dashboard';
 import TeacherProfile from './components/teacherProfile/teacherProfile';
+import SearchPage from './components/searchResult/SearchPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup-student" element={<SignupStudent />} />
           <Route path="/student-dashboard" element={<Dashboard />} />
           <Route path="/sampleTeacherProfile" element={<TeacherProfile />} />
+          <Route path="/results" element={<SearchPage />} />
         </Routes>
       </Router>
     </div>
