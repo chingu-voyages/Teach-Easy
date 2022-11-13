@@ -42,7 +42,7 @@ const UploadModal = ({ setUploading }) => {
     'Grammar',
   ];
 
-  const sendFormData =  async ({lessonTitle, lessonDescription, lessonDocument, tags, id, language}) => {
+  const sendFormData =  async ({ lessonTitle, lessonDescription, lessonDocument, tags, id, language }) => {
     const formData = new FormData();
     // const jsoncontent = JSON.stringify({title: lessonTitle, lessonDescription, tags, id, language})
     formData.append("lessonDocument", lessonDocument);
@@ -62,6 +62,12 @@ const UploadModal = ({ setUploading }) => {
       })
       const res = await post.json();
       console.log('response: ', res)
+      if(post.ok){
+        setUploading(false)
+      }
+      if(!post.ok){
+        //handle error display to user
+      }
     } catch (error) {
       console.error(error.message)
     }
@@ -96,8 +102,7 @@ const UploadModal = ({ setUploading }) => {
       // teacherID: theTecherUID
     };
 
-    sendFormData({ ...lessonData })
-    setUploading(false);
+    sendFormData(lessonData)
   };
 
   const options = [

@@ -4,6 +4,7 @@ const {
   getProfile,
   updateProfile,
   getDash,
+  scheduleLesson
 } = require("../controllers/teacher");
 const { getLessonDoc } = require("../controllers/lesson");
 //teacher routes
@@ -38,5 +39,10 @@ router.get("/dashboard", getDash);
 //teacher dash update
 //I've set it as updateProfile as all the info for the dash is stored in the same model as the profile info
 router.put("/dashboard/:id", updateProfile);
+
+//schedule a lesson
+  //Saves a lesson object with various details into the teacher's specific MongoDB document
+  //Each lesson is an object within an array.
+router.put("/scheduleLesson/", scheduleLesson)
 
 module.exports = router;

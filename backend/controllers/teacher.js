@@ -96,5 +96,38 @@ const getDash = async (req, res) => {
 };
 
 //TODO: PUT: when teacher wants to create a ìn event date/lesson
+//PUT: Schedules a new lesson 
+const scheduleLesson = async (req, res) => {
+  const {
+    id,
+    firstName,
+    lastName,
+    lessonTitle,
+    lessonDescription,
+    lessonDate,
+    lessonTime,
+    lessonLanguage,
+    lessonTimeZone
+  } = req.body;
+  console.log(id, lessonTitle, lessonDescription, lessonDate, lessonTime, lessonLanguage, lessonTimeZone);
+  try {
+    const profile = await teacherDocInDB.findOneAndUpdate({ loginID: id })
+          profile.nextLesson.push({
+            firstName,
+            lastName,
+            lessonTitle,
+            lessonDescription,
+            lessonDate,
+            lessonTime,
+            lessonLanguage,
+            lessonTimeZone
+          });
+          profile.save()
+    res.status(200).json(profile);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-module.exports = { getProfile, updateProfile, getDash, createTeacherProfile };
+
+module.exports = { getProfile, updateProfile, getDash, createTeacherProfile, scheduleLesson };

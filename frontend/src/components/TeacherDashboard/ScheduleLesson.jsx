@@ -1,21 +1,28 @@
 import React from 'react'
 import { useState, useEffect } from'react'
-import times from './timeSelection'
+import {times, options} from './selectorOptions'
 
 const ScheduleLesson = ({ setScheduling }) => {
   
 
-  const sendScheduleData =  async ({lessonTitle, lessonDescription, lessonDocument, tags, id, language}) => {
+  const sendScheduleData =  async ({...scheduleData}) => {
 
+    console.log('data,', scheduleData)
 
     try {
-      const post = await fetch("http://localhost:3000/lesson/upload", {
-        method: "POST",
+      const sendData = await fetch("http://localhost:3000/teacher/scheduleLesson/", {
+        method: "put",
         mode: 'cors',
-            
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify(scheduleData)
       })
-      const res = await post.json();
-      console.log('response: ', res)
+      const res = await sendData.json();
+      if(sendData.ok){
+        setScheduling(false)
+      }
+      if(!sendData.ok){
+        //handle error display to user
+      }
     } catch (error) {
       console.error(error.message)
     }
@@ -31,6 +38,8 @@ const ScheduleLesson = ({ setScheduling }) => {
     event.preventDefault();
     const { lessonTitle, lessonDescription, lessonDate, lessonTime, lessonLanguage, lessonTimeZone } = event.target.elements;
     const scheduleData = {
+      //development only: TO BE the UID / LoginID to match the teacher model
+        id: "12345",
         lessonTitle: lessonTitle.value,
         lessonDescription: lessonDescription.value,
         lessonDate: lessonDate.value,
@@ -38,48 +47,10 @@ const ScheduleLesson = ({ setScheduling }) => {
         lessonLanguage: lessonLanguage.value,
         lessonTimeZone: lessonTimeZone.value
     };
-    console.log('submitted: ', scheduleData)
-    sendScheduleData({ ...scheduleData })
+    sendScheduleData(scheduleData)
     // setScheduling(false);
   };
 
-  const options = [
-
-    {
-      label: "English",
-      value: "English",
-    },
-    {
-      label: "Spanish",
-      value: "Spanish",
-    },
-    {
-      label: "French",
-      value: "French",
-    },
-    {
-      label: "Italian",
-      value: "Italian",
-    },
-    {
-      label: "Arabic",
-      value: "Arabic",
-    },
-    {
-      label: "Madarin",
-      value: "Mandarin",
-    },
-    {
-      label: "Russian",
-      value: "Russian",
-    },
-    {
-      label: "Portugese",
-      value: "Portugese",
-    },
-  ];
-
-  console.log(times)
 
   return (
     <div className='upload-form'>

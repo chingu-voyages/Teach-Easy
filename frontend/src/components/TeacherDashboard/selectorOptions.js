@@ -1,4 +1,4 @@
-const times = [
+export const times = [
     {
       label: "UTC+0 (London, Dublin, Lisbon)",
       value: "UTC+0 (London, Dublin, Lisbon)",
@@ -80,4 +80,38 @@ const times = [
       value: "UTC-1 (Greenland, Azores Islands)",
     },
 ]
-export default times;
+export const options = [
+
+  {
+    label: "English",
+    value: "English",
+  },
+  {
+    label: "Spanish",
+    value: "Spanish",
+  },
+  {
+    label: "French",
+    value: "French",
+  },
+  {
+    label: "Italian",
+    value: "Italian",
+  },
+  {
+    label: "Arabic",
+    value: "Arabic",
+  },
+  {
+    label: "Madarin",
+    value: "Mandarin",
+  },
+  {
+    label: "Russian",
+    value: "Russian",
+  },
+  {
+    label: "Portugese",
+    value: "Portugese",
+  },
+];
