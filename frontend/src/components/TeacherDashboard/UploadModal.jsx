@@ -32,6 +32,7 @@ const UploadModal = ({ setUploading }) => {
   const [tags, setTags] = useState([]);
   const [data, setData] = useState(null);
   const [error, setError] = useState(false)
+  
   const tagNames = [
     'Beginner',
     'Intermediate',
