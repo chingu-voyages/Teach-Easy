@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from'react'
-
+import times from './timeSelection'
 
 const ScheduleLesson = ({ setScheduling }) => {
   
@@ -29,13 +29,14 @@ const ScheduleLesson = ({ setScheduling }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { lessonTitle, lessonDescription, lessonDate, lessonTime, lessonLanguage } = event.target.elements;
+    const { lessonTitle, lessonDescription, lessonDate, lessonTime, lessonLanguage, lessonTimeZone } = event.target.elements;
     const scheduleData = {
         lessonTitle: lessonTitle.value,
         lessonDescription: lessonDescription.value,
         lessonDate: lessonDate.value,
         lessonTime: lessonTime.value,
-        lessonLanguage: lessonLanguage.value
+        lessonLanguage: lessonLanguage.value,
+        lessonTimeZone: lessonTimeZone.value
     };
     console.log('submitted: ', scheduleData)
     sendScheduleData({ ...scheduleData })
@@ -78,6 +79,7 @@ const ScheduleLesson = ({ setScheduling }) => {
     },
   ];
 
+  console.log(times)
 
   return (
     <div className='upload-form'>
@@ -113,8 +115,8 @@ const ScheduleLesson = ({ setScheduling }) => {
                 </select>
             </div>
 
-            <div className='flex justify-center gap-10 w-full'>
-                <div className='date flex items-center gap-2'>
+            <div className='flex flex-col justify-evenly'>
+                <div className='flex items-center gap-4 py-1'>
                     <label htmlFor="Schedule Date">Date: </label>
                     <input 
                         type="date"
@@ -124,7 +126,7 @@ const ScheduleLesson = ({ setScheduling }) => {
                         required
                     />
                 </div>
-                <div className='date flex items-center gap-2'>
+                <div className='flex items-center gap-4 py-1'>
                     <label htmlFor="Schedule Time">Time: </label>
                     <input 
                         type="time"
@@ -132,6 +134,24 @@ const ScheduleLesson = ({ setScheduling }) => {
                         className='focus:outline-none'
                         required
                     />
+                </div>
+                <div className="flex items-center ">
+                  <label 
+                    className="text-left"
+                    htmlFor="lessonTimeZone">Time Zone: </label>
+                  <select 
+                  className='w-full px-1 py-2 rounded-lg border bg-gray-200 
+                   border-gray-300 focus:border-2 focus:border-purple-600 focus:outline-none'
+                  name="lessonTimeZone"
+                  >
+                  {times.map((times) => (
+                      <option 
+                      className=""
+                      key={times.value}
+                      >{times.label}
+                      </option>
+                  ))}
+                  </select>
                 </div>
             </div>
 
