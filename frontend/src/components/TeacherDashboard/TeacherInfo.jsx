@@ -7,10 +7,12 @@ import {
   faChalkboardUser,
   faPenToSquare,
   faUpload,
+  faCalendarPlus
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import ScheduleLesson from './ScheduleLesson';
 
 function CheckBoxTag({ value, tagName }) {
   const [toggle, setToggle] = useState(false);
@@ -37,7 +39,7 @@ function CheckBoxTag({ value, tagName }) {
   );
 }
 
-function TeacherInfo({ setUploading }) {
+function TeacherInfo({ setUploading, setScheduling }) {
   const [tags, setTags] = React.useState([]);
   const [dashboardData, setDashboardData] = useState(null);
 
@@ -80,6 +82,10 @@ function TeacherInfo({ setUploading }) {
   const uploadLesson = () => {
     setUploading((prev) => !prev);
   };
+
+  const scheduleLesson = () => {
+    setScheduling(true)
+  }
 
   const editAboutMe = () => {
     console.log('clicked');
@@ -195,17 +201,23 @@ function TeacherInfo({ setUploading }) {
           </div>
         </div>
         <div className="grid-item">
-          <div className="flex-item  flex flex-col gap-3 mb-4">
+          <div className="flex-item  flex items-center gap-3 mb-4">
             <h2 className="font-bold text-xl">
               <FontAwesomeIcon
                 icon={faGraduationCap}
                 size="1x"
                 className=" text-purple-600 mr-2"
               />
-              Your Next Lesson
+              Schedule Your Next Lesson
             </h2>
-            <h3 className="mt-3 font-bold">Lesson title:</h3>
+            <FontAwesomeIcon
+                icon={faCalendarPlus}
+                size="1x"
+                className="text-purple-600 mr-2 ml-auto hover:text-purple-300"
+                onClick={scheduleLesson}
+              />
           </div>
+            <h3 className="mt-3 font-bold">Lesson title Here: Phrasal Verbs</h3>
           <div className="flex flex-col gap-3">
             <p className="leading-relaxed">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit a
@@ -216,7 +228,7 @@ function TeacherInfo({ setUploading }) {
               <strong>Date: </strong>10/05/2023
             </p>
             <p>
-              <strong>Date: </strong>10/05/2023
+              <strong>Tiem: </strong>16:00 CET (Central European Time)
             </p>
           </div>
         </div>

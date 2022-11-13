@@ -142,7 +142,7 @@ const UploadModal = ({ setUploading }) => {
             <label htmlFor="lessonTitle">Lesson Title:</label>
             <input 
               type="text" 
-              className='w-full px-2 py-1 rounded-lg my-3 border bg-gray-200 border-gray-300'
+              className='w-full px-2 py-2 rounded-lg my-3 border bg-gray-200 border-gray-300 focus:border-2 focus:border-purple-600 focus:outline-none'
               placeholder='The title of the lesson'
               name="lessonTitle"
               required
@@ -151,7 +151,7 @@ const UploadModal = ({ setUploading }) => {
             <textarea 
               type='text' 
               placeholder='Your lesson description here...'
-              className='w-full h-16 px-2 py-1 rounded-lg my-3 border border-gray-300'
+              className='w-full h-16 px-2 py-2 rounded-lg my-3 border border-gray-300 focus:border-2 focus:border-purple-600 focus:outline-none'
               name="lessonDescription"
               required
             ></textarea>
