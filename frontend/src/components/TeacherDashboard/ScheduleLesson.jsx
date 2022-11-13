@@ -1,13 +1,11 @@
 import React from 'react'
-import { useState, useEffect } from'react'
+import { useState } from'react'
 import {times, options} from './selectorOptions'
 
 const ScheduleLesson = ({ setScheduling }) => {
-  
+  const[error, setError] = useState(false)
 
   const sendScheduleData =  async ({...scheduleData}) => {
-
-    console.log('data,', scheduleData)
 
     try {
       const sendData = await fetch("http://localhost:3000/teacher/scheduleLesson/", {
@@ -22,6 +20,7 @@ const ScheduleLesson = ({ setScheduling }) => {
       }
       if(!sendData.ok){
         //handle error display to user
+        setError(true)
       }
     } catch (error) {
       console.error(error.message)
@@ -127,6 +126,7 @@ const ScheduleLesson = ({ setScheduling }) => {
             </div>
 
         <hr />
+        {error &&<p className='text-red-600 text-lg'>There was an error with your submit, please try again</p>}
         <div className='flex justify-center gap-5 mt-3'>
             <button 
               type="submit" 

@@ -143,7 +143,7 @@ function StudentProfile() {
             <h2 className="font-bold text-xl">Find Lessons Now</h2>
             <input
               type="search"
-              className="justify-self-stretch px-3 py-4 rounded-md mt-2 bg-gray-200"
+              className="justify-self-stretch px-3 py-4 rounded-md mt-2 bg-gray-200 focus:border-2 focus:border-purple-600 focus:outline-none"
               placeholder="Start your learning journey here..."
             />
           </div>

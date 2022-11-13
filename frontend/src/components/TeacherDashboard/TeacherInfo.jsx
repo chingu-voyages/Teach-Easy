@@ -162,8 +162,8 @@ function TeacherInfo({ setUploading, setScheduling }) {
             <h2 className="font-bold text-xl">Find Lessons Now</h2>
             <input
               type="search"
-              className="justify-self-stretch px-3 py-4 rounded-md mt-2 bg-gray-200"
-              placeholder="Start your learning journey here..."
+              className="justify-self-stretch px-3 py-4 rounded-md mt-2 bg-gray-200 focus:border-2 focus:border-purple-600 focus:outline-none"
+              placeholder="Start your teaching journey here..."
             />
           </div>
           <div className="flex-item  flex flex-col gap-3 mb-4">

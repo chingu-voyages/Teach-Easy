@@ -31,7 +31,7 @@ function CheckBoxTag({ value, tagName }) {
 const UploadModal = ({ setUploading }) => {
   const [tags, setTags] = useState([]);
   const [data, setData] = useState(null);
-  
+  const [error, setError] = useState(false)
   const tagNames = [
     'Beginner',
     'Intermediate',
@@ -61,15 +61,15 @@ const UploadModal = ({ setUploading }) => {
             
       })
       const res = await post.json();
-      console.log('response: ', res)
+      console.log('response: ', res);
       if(post.ok){
-        setUploading(false)
+        setUploading(false);
       }
       if(!post.ok){
-        //handle error display to user
+        setError(true);
       }
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
 
   }
@@ -201,6 +201,7 @@ const UploadModal = ({ setUploading }) => {
             </div>
         </div>
         <hr />
+        {error && <p className='text-red-600 text-lg'>There was an error with your submit, please try again</p>}
         <div className='flex justify-center gap-5 mt-3'>
             <button 
               type="submit" 
