@@ -5,7 +5,7 @@ import { useState, useEffect } from'react'
 const ScheduleLesson = ({ setScheduling }) => {
   
 
-  const postLessonSchedule =  async ({lessonTitle, lessonDescription, lessonDocument, tags, id, language}) => {
+  const sendScheduleData =  async ({lessonTitle, lessonDescription, lessonDocument, tags, id, language}) => {
 
 
     try {
@@ -29,14 +29,54 @@ const ScheduleLesson = ({ setScheduling }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { lessonTitle, lessonDescription, lessonDocument, language } = event.target.elements;
+    const { lessonTitle, lessonDescription, lessonDate, lessonTime, lessonLanguage } = event.target.elements;
     const scheduleData = {
-        //info
+        lessonTitle: lessonTitle.value,
+        lessonDescription: lessonDescription.value,
+        lessonDate: lessonDate.value,
+        lessonTime: lessonTime.value,
+        lessonLanguage: lessonLanguage.value
     };
-
-    sendFormData({ ...scheduleData })
-    setScheduling(false);
+    console.log('submitted: ', scheduleData)
+    sendScheduleData({ ...scheduleData })
+    // setScheduling(false);
   };
+
+  const options = [
+
+    {
+      label: "English",
+      value: "English",
+    },
+    {
+      label: "Spanish",
+      value: "Spanish",
+    },
+    {
+      label: "French",
+      value: "French",
+    },
+    {
+      label: "Italian",
+      value: "Italian",
+    },
+    {
+      label: "Arabic",
+      value: "Arabic",
+    },
+    {
+      label: "Madarin",
+      value: "Mandarin",
+    },
+    {
+      label: "Russian",
+      value: "Russian",
+    },
+    {
+      label: "Portugese",
+      value: "Portugese",
+    },
+  ];
 
 
   return (
@@ -59,12 +99,40 @@ const ScheduleLesson = ({ setScheduling }) => {
               required
             ></textarea>
 
-            <label htmlFor="Schedule Date"></label>
-            <input 
-                type="date"
-                name="lessonDate"
-                required 
-            />
+            <div>
+                <select 
+                className='w-full px-2 py-2 rounded-lg my-3 border bg-gray-200 border-gray-300 focus:border-2 focus:border-purple-600 focus:outline-none'
+                name="lessonLanguage"
+                >
+                {options.map((option) => (
+                    <option 
+                    key={option.value}
+                    >{option.label}
+                    </option>
+                ))}
+                </select>
+            </div>
+
+            <div className='flex justify-center gap-10 w-full'>
+                <div className='date flex items-center gap-2'>
+                    <label htmlFor="Schedule Date">Date: </label>
+                    <input 
+                        type="date"
+                        name="lessonDate"
+                        className='focus:outline-none'
+                        required
+                    />
+                </div>
+                <div className='date flex items-center gap-2'>
+                    <label htmlFor="Schedule Time">Time: </label>
+                    <input 
+                        type="time"
+                        name="lessonTime"
+                        className='focus:outline-none'
+                        required
+                    />
+                </div>
+            </div>
 
         <hr />
         <div className='flex justify-center gap-5 mt-3'>

@@ -158,13 +158,13 @@ const UploadModal = ({ setUploading }) => {
             <label htmlFor="lessonDocument"></label>
             <input 
             type="file"
-            required 
+            className="focus:outline-none"
             name="lessonDocument"
-            placeholder="Upload here"
+            required 
             />
             <div>
             <select 
-            className='w-full px-2 py-1 rounded-lg my-3 border bg-gray-200 border-gray-300'
+            className='w-full px-2 py-2 rounded-lg my-3 border bg-gray-200 border-gray-300 focus:border-2 focus:border-purple-600 focus:outline-none'
             name="language"
             >
               {options.map((option) => (
