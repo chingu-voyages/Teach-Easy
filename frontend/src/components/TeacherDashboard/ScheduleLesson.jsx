@@ -119,6 +119,7 @@ const ScheduleLesson = ({ setScheduling }) => {
                     <input 
                         type="date"
                         name="lessonDate"
+                        min={new Date().toISOString().split('T')[0]}
                         className='focus:outline-none'
                         required
                     />
