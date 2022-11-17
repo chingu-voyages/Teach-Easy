@@ -12,7 +12,11 @@ router.post('/student/signup', createStudentProfile);
 //POST: Login a student/or teacher
 //TODO: As part of user authentication
 router.post('/login', (req,res)=> {
-    res.send("<h1>auth</h1>");
+    console.log('request received')
+    // const {loginID} = req.body; 
+    // if(!loginID)
+    console.log(req.body.loginID)
+    res.send("<h1>authorised</h1>");
 });
 
 module.exports = router;

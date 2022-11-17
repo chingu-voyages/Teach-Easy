@@ -1,6 +1,7 @@
 const lessonDocInDB = require('../models/lesson');
 const teacherDocInDB = require('../models/teacher');
 const mongoose = require('mongoose');
+const cloudinary = require('../config/cloudinaryConfig')
 
 //GET: search for lesson
 const getLessonDoc = async (req,res) => {
@@ -8,12 +9,19 @@ const getLessonDoc = async (req,res) => {
     // word search not set up yet
     // const {tags, wordSearch} = req.query;
     const tags = req.query.tags;
+    const wordSearch = req.query.searchData;
     try {
-        const lessons = await lessonDocInDB.find({ tags : { $in : tags.split(',').map(elem=> elem) }});
-        const arrayLength = lessons[0].rating.rateGiven.length;
-        const averageRating = (lessons[0].rating.rateGiven.reduce((a,b)=> +a + +b))/arrayLength;
-        //average rating is returned for frontend display only
-        res.status(200).json({...lessons, averageRating: averageRating});
+        if(tags){
+            const tagAndWords = tags.split(',').join(' ') + ' ' + wordSearch;
+            const lessons = await lessonDocInDB.find({ $text: {$search: tagAndWords} }, 
+                { score: {$meta: "textScore"}}).sort({ score:  { $meta: "textScore"}});
+                res.status(200).json({ lessons });
+            }
+        else{
+            const lessons = await lessonDocInDB.find({ $text: {$search: wordSearch} }, 
+                { score: {$meta: "textScore"}}).sort({ score:  { $meta: "textScore"}});
+            res.status(200).json({ lessons });
+            }
     } catch (error) {
         res.status(500).json({error: error.message});
     }
@@ -24,8 +32,19 @@ const getLessonDoc = async (req,res) => {
 const postLesson = async(req,res)=> {
     //title, lessonDocument,tags and language are required
     //TODO => add userID
-    const { id } = req.params;
-    const {title, image, teacherName, lessonDocument, tags, language} = req.body;
+    // console.log(req.body)
+    try {
+    // const lessonDocument =  await req.file
+    const result = await cloudinary.uploader.upload(req.file.path)
+    console.log('cloud doc', result);
+    console.log('file doc', req.file)
+    // console.log('file doc path', req.file)
+    const lessonDocumentID = result.public_id;
+    const lessonDocument = result.secure_url;
+
+    let {id, title, image, teacherName, lessonDescription, tags, language} = await req.body;
+    tags = tags.split(' ');
+    console.log('id', id, 'title', title, 'lessonDescription', lessonDescription, 'language', language, 'tags', tags, 'lessonDocID', lessonDocumentID, 'lessonDoc', lessonDocument, result.secure_url)
     const emptyFields = [];
     if(!title){
         emptyFields.push('Title');
@@ -42,8 +61,8 @@ const postLesson = async(req,res)=> {
     if(emptyFields.length> 0) {
         res.status(400).json({error: 'Please make sure all fields are filled', emptyFields});
     }
-    try {
-        const lesson = await lessonDocInDB.create({teacherId: id, title, image, teacherName, lessonDocument, tags, language});
+
+        const lesson = await lessonDocInDB.create({teacherId: id, title, image, lessonDescription, teacherName, lessonDocumentID, lessonDocument, tags, language});
         res.status(200).json(lesson);
     } catch (error) {
         res.status(500).json({error: error.message});
@@ -80,7 +99,7 @@ const rateLesson = async (req,res)=> {
                 res.status(400).json({error: "student has already rated this lesson"})
             }
     } catch (error) {
-        
+        console.error('error rating lesson : ', error.message)
     }
 } 
 

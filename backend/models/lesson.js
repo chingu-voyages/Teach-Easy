@@ -12,12 +12,18 @@ const Lesson = new Schema({
     image: {
         type: String,
     },
+    lessonDescription: String,
     teacherName: {
         type: String
     },
-    lessonDocument:{
+    lessonDocumentID:{
         type: String,
         required: true,
+        unique: true
+    },
+    lessonDocument:{
+        type: String,
+        required: true
     },
     tags:{
         type: Array,
@@ -36,4 +42,6 @@ const Lesson = new Schema({
         default: Date.now
     }
 })
+
+Lesson.index({ title: 'text', lessonDescription: 'text', language: 'text', tags: 'text' });
 module.exports = mongoose.model('Lesson', Lesson)
