@@ -31,6 +31,7 @@ function CheckBoxTag({ value, tagName }) {
 const UploadModal = ({ setUploading }) => {
   const [tags, setTags] = useState([]);
   const [data, setData] = useState(null);
+  const [error, setError] = useState(false)
   
   const tagNames = [
     'Beginner',
@@ -42,7 +43,7 @@ const UploadModal = ({ setUploading }) => {
     'Grammar',
   ];
 
-  const sendFormData =  async ({lessonTitle, lessonDescription, lessonDocument, tags, id, language}) => {
+  const sendFormData =  async ({ lessonTitle, lessonDescription, lessonDocument, tags, id, language }) => {
     const formData = new FormData();
     // const jsoncontent = JSON.stringify({title: lessonTitle, lessonDescription, tags, id, language})
     formData.append("lessonDocument", lessonDocument);
@@ -61,9 +62,15 @@ const UploadModal = ({ setUploading }) => {
             
       })
       const res = await post.json();
-      console.log('response: ', res)
+      console.log('response: ', res);
+      if(post.ok){
+        setUploading(false);
+      }
+      if(!post.ok){
+        setError(true);
+      }
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
 
   }
@@ -96,8 +103,7 @@ const UploadModal = ({ setUploading }) => {
       // teacherID: theTecherUID
     };
 
-    sendFormData({ ...lessonData })
-    setUploading(false);
+    sendFormData(lessonData)
   };
 
   const options = [
@@ -142,7 +148,7 @@ const UploadModal = ({ setUploading }) => {
             <label htmlFor="lessonTitle">Lesson Title:</label>
             <input 
               type="text" 
-              className='w-full px-2 py-1 rounded-lg my-3 border bg-gray-200 border-gray-300'
+              className='w-full px-2 py-2 rounded-lg my-3 border bg-gray-200 border-gray-300 focus:border-2 focus:border-purple-600 focus:outline-none'
               placeholder='The title of the lesson'
               name="lessonTitle"
               required
@@ -151,20 +157,20 @@ const UploadModal = ({ setUploading }) => {
             <textarea 
               type='text' 
               placeholder='Your lesson description here...'
-              className='w-full h-16 px-2 py-1 rounded-lg my-3 border border-gray-300'
+              className='w-full h-16 px-2 py-2 rounded-lg my-3 border border-gray-300 focus:border-2 focus:border-purple-600 focus:outline-none'
               name="lessonDescription"
               required
             ></textarea>
             <label htmlFor="lessonDocument"></label>
             <input 
             type="file"
-            required 
+            className="focus:outline-none"
             name="lessonDocument"
-            placeholder="Upload here"
+            required 
             />
             <div>
             <select 
-            className='w-full px-2 py-1 rounded-lg my-3 border bg-gray-200 border-gray-300'
+            className='w-full px-2 py-2 rounded-lg my-3 border bg-gray-200 border-gray-300 focus:border-2 focus:border-purple-600 focus:outline-none'
             name="language"
             >
               {options.map((option) => (
@@ -196,6 +202,7 @@ const UploadModal = ({ setUploading }) => {
             </div>
         </div>
         <hr />
+        {error && <p className='text-red-600 text-lg'>There was an error with your submit, please try again</p>}
         <div className='flex justify-center gap-5 mt-3'>
             <button 
               type="submit" 
